@@ -135,7 +135,7 @@ public class Board {
      *
      */
     public boolean moveUp(Vehicle v) {
-        if (!v.canMoveUp()) {
+        if (!canMoveUp(v)) {
             return false;
         }
         
@@ -164,7 +164,7 @@ public class Board {
      *
      */
     public boolean moveLeft(Vehicle v) {
-        if (!v.canMoveLeft()) {
+        if (!canMoveLeft(v)) {
             return false;
         }
         
@@ -193,7 +193,7 @@ public class Board {
      *
      */
     public boolean moveRight(Vehicle v) {
-        if (!v.canMoveRight()) {
+        if (!canMoveRight(v)) {
             return false;
         }
         
@@ -221,8 +221,8 @@ public class Board {
      * @pre: must call canMoveDown() first.
      *
      */
-    public void moveDown(Vehicle v) {
-        if (!v.canMoveDown()) {
+    public boolean moveDown(Vehicle v) {
+        if (!canMoveDown(v)) {
             return false;
         }
         
@@ -247,6 +247,8 @@ public class Board {
      * @pre vehicle is not null, vehicle contains valid address
      */
     public boolean addVehicle(Vehicle v) {
+        int[][] currAddress = v.getAddress();
+        
         int headX = currAddress[HEAD][X_COORD], 
         int headY = currAddress[HEAD][Y_COORD];
         int tailX = currAddress[TAIL][X_COORD];
