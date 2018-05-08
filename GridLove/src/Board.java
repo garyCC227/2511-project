@@ -39,7 +39,7 @@ public class Board {
          * locates at top of board - not available space in board to move in
          */
         int[][] currAddress = v.getAddress();
-        int headX = currAddress[HEAD][X_COORD], 
+        int headX = currAddress[HEAD][X_COORD]; 
         int headY = currAddress[HEAD][Y_COORD];
 
         if (headY == 0 || board[headX][headY - 1] != null) {
@@ -65,7 +65,7 @@ public class Board {
          * locates at top of board - not available space in board to move in
          */
         int[][] currAddress = v.getAddress();
-        int headX = currAddress[HEAD][X_COORD], 
+        int headX = currAddress[HEAD][X_COORD]; 
         int headY = currAddress[HEAD][Y_COORD];
 
         if (headX == 0 || board[headX - 1][headY] != null) {
@@ -140,7 +140,7 @@ public class Board {
         }
         
         int[][] currAddress = v.getAddress();
-        int headX = currAddress[HEAD][X_COORD], 
+        int headX = currAddress[HEAD][X_COORD]; 
         int headY = currAddress[HEAD][Y_COORD];
         int tailX = currAddress[TAIL][X_COORD];
         int tailY = currAddress[TAIL][Y_COORD];
@@ -169,7 +169,7 @@ public class Board {
         }
         
         int[][] currAddress = v.getAddress();
-        int headX = currAddress[HEAD][X_COORD], 
+        int headX = currAddress[HEAD][X_COORD]; 
         int headY = currAddress[HEAD][Y_COORD];
         int tailX = currAddress[TAIL][X_COORD];
         int tailY = currAddress[TAIL][Y_COORD];
@@ -198,7 +198,7 @@ public class Board {
         }
         
         int[][] currAddress = v.getAddress();
-        int headX = currAddress[HEAD][X_COORD], 
+        int headX = currAddress[HEAD][X_COORD]; 
         int headY = currAddress[HEAD][Y_COORD];
         int tailX = currAddress[TAIL][X_COORD];
         int tailY = currAddress[TAIL][Y_COORD];
@@ -227,7 +227,7 @@ public class Board {
         }
         
         int[][] currAddress = v.getAddress();
-        int headX = currAddress[HEAD][X_COORD], 
+        int headX = currAddress[HEAD][X_COORD]; 
         int headY = currAddress[HEAD][Y_COORD];
         int tailX = currAddress[TAIL][X_COORD];
         int tailY = currAddress[TAIL][Y_COORD];
@@ -249,7 +249,7 @@ public class Board {
     public boolean addVehicle(Vehicle v) {
         int[][] currAddress = v.getAddress();
         
-        int headX = currAddress[HEAD][X_COORD], 
+        int headX = currAddress[HEAD][X_COORD]; 
         int headY = currAddress[HEAD][Y_COORD];
         int tailX = currAddress[TAIL][X_COORD];
         int tailY = currAddress[TAIL][Y_COORD];
