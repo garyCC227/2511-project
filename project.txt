@@ -1,0 +1,30 @@
+For our project:
+
+------------We are able to
+1. build a board and its cell is used to point vehicles
+2. move vehicles according to the rule
+3. update board and vehicles List after move.
+4. build UI by FXML
+5. grab input from UI.   which is the object we built in UI, the object contain
+ its id and x, y coordinate.
+6. Use the x, y to check with the Board data.
+
+
+------Data structure:
+Data for Board.  ---- class board
+viewer Mycontroller ---- class Mycontroller
+which is a has-a relationship
+
+Mycontroller has a board data.
+
+
+----------we have the problem:
+1.we need to generate vehicles from back stage,
+and send it to FXML, then draw this vehicles out.
+since we are now draw vehicles and generate vehicles by manually
+
+2.when we start the game, generate a board in UI need to relate with the board
+  data. we didn't do that, we initialize Board UI and board data manually.
+
+3.I recommend we dont do a has-a relationship for controller and board data,
+    MVC will be good. but I have no idea how to build this design structure yet.
