@@ -22,7 +22,7 @@ public class Main extends Application {
 			 */
 			Board board = new Board();
 			//set vehicles
-			Vehicle c1 = new Vehicle(0, 2, 1, 0);
+			Vehicle c1 = new Vehicle(0, 2, 0, 0);
 			Vehicle c2 = new Vehicle(0, 2, 1, 2);
 			Vehicle c3 = new Vehicle(0, 2, 4, 4);
 			Vehicle c4 = new Vehicle(1, 2, 0, 4);
