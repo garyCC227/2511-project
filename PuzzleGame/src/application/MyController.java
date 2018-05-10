@@ -46,6 +46,9 @@ public class MyController {
 	   @FXML
 	   private Rectangle v7;
 	   
+	   @FXML
+	   private Rectangle redCar;
+	   
 	   //board data
 	   private Board newGame;
 	   
@@ -69,25 +72,29 @@ public class MyController {
 			   int col = v.getAddress()[0][0]; // the x of head - col
 			   int size = v.getSize();
 			   int ori = v.getOrientation(); // 0 - horizontal 1 - vertical
-			   // setting
+			   boolean isRed = v.getIsRedCar();
 			   Rectangle rec = (Rectangle) rList.get(i);
-			   rec.setArcWidth(30);
-			   rec.setArcWidth(30);
 			   
+			   // setting
+			   if (isRed == true) {
+				   rec = redCar;
+				   i--; // to offset the auto inc since the redcar is not in the list
+				   		// it should not affect the index
+			   }  
+   
 			   // if it is horizontal
 			   if(ori == 0) {
 				   rec.setHeight(60);
 				   rec.setWidth(60*size);
-				   board.add(rec, col, row, size, 1); // node, col, row, colspan, rowspan
-				   
-				   
+				   board.add(rec, col, row, size, 1); // node, col, row, colspan, rowspan				   
+					   
 			   } else {
 				   rec.setWidth(60);
 				   rec.setHeight(60*size);
 				   board.add(rec, col, row, 1, size);
-				   
+					   
 			   }
-			   
+				   
 			   // after all setting set it as visible
 			   rec.setVisible(true);
 			   i++;

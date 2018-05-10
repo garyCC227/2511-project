@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Board {
     private Vehicle[][] board;
     private ArrayList<Vehicle> vehicleList;
+    
     private static final int VERTICAL = 1;
     private static final int HORIZONTAL = 0;
     private static final int CAR = 2;
@@ -26,7 +27,9 @@ public class Board {
 		 */
 		//set vehicles
 		Vehicle c1 = new Vehicle(0, 2, 0, 0);
-		Vehicle c2 = new Vehicle(0, 2, 1, 2);
+		Vehicle c2 = new Vehicle(0, 2, 1, 2); 
+		// if this is the red car
+		c2.setIsRedCar();
 		Vehicle c3 = new Vehicle(0, 2, 4, 4);
 		Vehicle c4 = new Vehicle(1, 2, 0, 4);
 		Vehicle t1 = new Vehicle(0, 3, 2, 5);

@@ -6,12 +6,14 @@ public class Vehicle {
     private int orientation; // 0 - horizontal, 1-vertical
     private int[][] address; // 2d array represent its head/tail x,y coordinate
     private int size; // size of vehicle
-
+    private boolean isRedCar; // is objective car or not
+    
     public Vehicle(int orientation, int size, int headX, int headY) {
         this.orientation = orientation;
         this.size = size;
         this.address = new int[2][2];
         set_address(headX, headY, size, orientation);
+        isRedCar = false;
     }
 
     public int getSize() {
@@ -78,6 +80,12 @@ public class Vehicle {
     	}
     }
     //=======
+    public void setIsRedCar () {
+    	this.isRedCar = true;
+    }
+    public boolean getIsRedCar() {
+    	return this.isRedCar;
+    }
 }
 
 
