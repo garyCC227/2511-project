@@ -19,6 +19,31 @@ public class Board {
         this.board = new Vehicle[6][6];
         this.vehicleList = new ArrayList<Vehicle>();
     }
+    public void generateBoard(/*level*/) {
+
+		/*
+		 *  set up data
+		 */
+		//set vehicles
+		Vehicle c1 = new Vehicle(0, 2, 0, 0);
+		Vehicle c2 = new Vehicle(0, 2, 1, 2);
+		Vehicle c3 = new Vehicle(0, 2, 4, 4);
+		Vehicle c4 = new Vehicle(1, 2, 0, 4);
+		Vehicle t1 = new Vehicle(0, 3, 2, 5);
+		Vehicle t2 = new Vehicle(1, 3, 0, 1);
+		Vehicle t3 = new Vehicle(1, 3, 3, 1);
+		Vehicle t4 = new Vehicle(1, 3, 5, 0);
+		
+		addVehicle(c1);
+		addVehicle(c2);
+		addVehicle(c3);
+		addVehicle(c4);
+		addVehicle(t1);
+		addVehicle(t2);
+		addVehicle(t3);
+	    addVehicle(t4);
+
+    }
 
     public Vehicle[][] getBoard() {
         return board;

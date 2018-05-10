@@ -1,5 +1,9 @@
 package application;
 import java.net.URL;
+import java.util.ArrayList;
+
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import javafx.event.*;
 
 
@@ -26,28 +30,74 @@ public class MyController {
 	   @FXML
 	   private GridPane board;
 	   @FXML
-	   private Rectangle vCar0;
+	   private Rectangle v0;
 	   @FXML
-	   private Rectangle vTruck1;
+	   private Rectangle v1;
 	   @FXML
-	   private Rectangle vTruck2;
+	   private Rectangle v2;
 	   @FXML
-	   private Rectangle vTruck3;
+	   private Rectangle v3;
 	   @FXML
-	   private Rectangle vCar4;
+	   private Rectangle v4;
 	   @FXML
-	   private Rectangle vCar5;
+	   private Rectangle v5;
 	   @FXML
-	   private Rectangle vTruck6;
+	   private Rectangle v6;
 	   @FXML
-	   private Rectangle vRedCar;
+	   private Rectangle v7;
 	   
 	   //board data
-	   private Board boardData;
+	   private Board newGame;
 	   
-	   public MyController(Board boardData) {
-		   this.boardData = boardData;
+	   //@Override URL location, ResourceBundle resources
+	   public void initialize() {
+		   ArrayList<Rectangle> rList = new ArrayList<>(8);
+		   rList.add(v0);
+		   rList.add(v1);
+		   rList.add(v2);
+		   rList.add(v3);
+		   rList.add(v4);
+		   rList.add(v5);
+		   rList.add(v6);
+		   rList.add(v7);
+		   
+		   newGame = new Board();
+		   newGame.generateBoard();
+		   int i = 0;
+		   for(Vehicle v: newGame.getVehicleList()) {
+			   int row = v.getAddress()[0][1]; // the y of head - row
+			   int col = v.getAddress()[0][0]; // the x of head - col
+			   int size = v.getSize();
+			   int ori = v.getOrientation(); // 0 - horizontal 1 - vertical
+			   // setting
+			   Rectangle rec = (Rectangle) rList.get(i);
+			   rec.setArcWidth(30);
+			   rec.setArcWidth(30);
+			   
+			   // if it is horizontal
+			   if(ori == 0) {
+				   rec.setHeight(60);
+				   rec.setWidth(60*size);
+				   board.add(rec, col, row, size, 1); // node, col, row, colspan, rowspan
+				   
+				   
+			   } else {
+				   rec.setWidth(60);
+				   rec.setHeight(60*size);
+				   board.add(rec, col, row, 1, size);
+				   
+			   }
+			   
+			   // after all setting set it as visible
+			   rec.setVisible(true);
+			   i++;
+		   }
+		   
 	   }
+	   
+	   /*public MyController(Board boardData) {
+		   this.boardData = boardData;
+	   }*/
 	   
 	   // when the mouse is pressed
 	   public void vehiclePressed(MouseEvent event) {
@@ -72,12 +122,12 @@ public class MyController {
 	      
 	       //check invalid movement from Database --- which is boardData
 	       String move = event.getCode().toString();
-	       Vehicle vehicle = boardData.getVehicle(c, r);
-	       if(!boardData.movementOp(vehicle, move)) {
+	       Vehicle vehicle = newGame.getVehicle(c, r);
+	       if(!newGame.movementOp(vehicle, move)) {
 	    	   System.out.println("Errno: Invalid move");
 	    	   return;
 	       }else {
-	    	   boardData.print_board();
+	    	   newGame.print_board();
 	       }
 	       
 		   if(event.getCode() == KeyCode.RIGHT) {
