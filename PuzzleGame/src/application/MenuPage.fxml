@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-image: url('file:D:/download/2511-project-master/PuzzleGame/background1.jpg');" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <Text fontSmoothingType="LCD" layoutX="140.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grid Lock" textAlignment="CENTER" wrappingWidth="320.263671875">
+         <font>
+            <Font name="Indie Flower" size="64.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f0bdbd95" height="60.0" layoutX="159.0" layoutY="146.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+   </children>
+</AnchorPane>
