@@ -9,5 +9,13 @@ public class Move {
 	this.vehicle = vehicle;
 	this.Direction = Direction;
     }
+    
+    public Vehicle getVehicle() {
+	return this.vehicle;
+    }
+    
+    public int getDirection() {
+	return this.Direction;
+    }
 
 }
