@@ -8,14 +8,36 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-image: url('file:D:/download/2511-project-master/PuzzleGame/background1.jpg');" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane fx:id="menu" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-image: url('file:D:/Users/jun/eclipse/workspace/PuzzleGame/background1.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
    <children>
-      <Text fontSmoothingType="LCD" layoutX="140.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grid Lock" textAlignment="CENTER" wrappingWidth="320.263671875">
+      <Text fontSmoothingType="LCD" layoutX="140.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grid Lock" textAlignment="CENTER" wrappingWidth="320.263671875">
          <font>
             <Font name="Indie Flower" size="64.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f0bdbd95" height="60.0" layoutX="159.0" layoutY="146.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f0bdbd95" height="60.0" layoutX="51.0" layoutY="146.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f0bdbd94" height="60.0" layoutX="151.0" layoutY="240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f0bdbd94" height="60.0" layoutX="260.0" layoutY="322.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f0bdbd94" height="60.0" layoutX="376.0" layoutY="429.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+      <Text fx:id="start" fontSmoothingType="LCD" layoutX="59.0" layoutY="184.0" onMouseClicked="#start" strokeType="OUTSIDE" strokeWidth="0.0" text="START" textAlignment="CENTER" wrappingWidth="184.263671875">
+         <font>
+            <Font name="Indie Flower" size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="help" fontSmoothingType="LCD" layoutX="163.0" layoutY="278.0" onMouseClicked="#help" strokeType="OUTSIDE" strokeWidth="0.0" text="HELP" textAlignment="CENTER" wrappingWidth="176.263671875">
+         <font>
+            <Font name="Indie Flower" size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="setting" fontSmoothingType="LCD" layoutX="272.0" layoutY="360.0" onMouseClicked="#setting" strokeType="OUTSIDE" strokeWidth="0.0" text="SETTING" textAlignment="CENTER" wrappingWidth="176.263671875">
+         <font>
+            <Font name="Indie Flower" size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="exit" fontSmoothingType="LCD" layoutX="388.0" layoutY="467.0" onMouseClicked="#exit" strokeType="OUTSIDE" strokeWidth="0.0" text="EXIT" textAlignment="CENTER" wrappingWidth="176.263671875">
+         <font>
+            <Font name="Indie Flower" size="36.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

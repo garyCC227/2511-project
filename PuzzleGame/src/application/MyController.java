@@ -51,10 +51,14 @@ public class MyController {
 	   
 	   //board data
 	   private Board newGame;
+	   private ArrayList<Rectangle> rList;
+	   private ArrayList<Integer[]> initialData;
+	   private Integer[] initialRed;
 	   
 	   //@Override URL location, ResourceBundle resources
 	   public void initialize() {
-		   ArrayList<Rectangle> rList = new ArrayList<>(8);
+		   initialData = new ArrayList<Integer[]>();
+		   rList = new ArrayList<>(8);
 		   rList.add(v0);
 		   rList.add(v1);
 		   rList.add(v2);
@@ -74,9 +78,11 @@ public class MyController {
 			   int ori = v.getOrientation(); // 0 - horizontal 1 - vertical
 			   boolean isRed = v.getIsRedCar();
 			   Rectangle rec = (Rectangle) rList.get(i);
+			   Integer[] data = new Integer[4]; // 0-col 1-row, 2-colspan, 3-rowspan
 			   
 			   // setting
 			   if (isRed == true) {
+				   initialRed = new Integer[4];
 				   rec = redCar;
 				   i--; // to offset the auto inc since the redcar is not in the list
 				   		// it should not affect the index
@@ -87,14 +93,30 @@ public class MyController {
 				   rec.setHeight(60);
 				   rec.setWidth(60*size);
 				   board.add(rec, col, row, size, 1); // node, col, row, colspan, rowspan				   
-					   
+				   data[0]=col;
+				   data[1]=row;
+				   data[2]=size;
+				   data[3]=1;
+				   
 			   } else {
 				   rec.setWidth(60);
 				   rec.setHeight(60*size);
 				   board.add(rec, col, row, 1, size);
-					   
+				   data[0]=col;
+				   data[1]=row;
+				   data[2]=1;
+				   data[3]=size;				   
 			   }
+			   
+			   if (isRed == true) {
+				   initialRed[0] = data[0];
+				   initialRed[1] = data[1];
+				   initialRed[2] = data[2];
+				   initialRed[3] = data[3];
 				   
+			   } else {
+				   initialData.add(data);
+			   }
 			   // after all setting set it as visible
 			   rec.setVisible(true);
 			   i++;
@@ -157,6 +179,25 @@ public class MyController {
 	   
 	   public void restart(ActionEvent event) {
 		   System.out.println("restart clicked!");
+		   // restart the board looking (UI)
+		   // initialData : 0-col 1-row, 2-colspan, 3-rowspan
+		   ArrayList<Vehicle> vList = newGame.getVehicleList();
+		   for (int i = 0; i < rList.size(); i++) {
+			   board.setColumnIndex(rList.get(i), initialData.get(i)[0]);
+			   board.setRowIndex(rList.get(i), initialData.get(i)[1]);
+			   board.setColumnSpan(rList.get(i), initialData.get(i)[2]);
+			   board.setRowSpan(rList.get(i), initialData.get(i)[3]);
+			   // set for the board way 1 - delete the old Board and generate a new one
+			   // set for the board way 1 - set new address for the old Board 
+			   
+			   
+		   }
+		   
+		   // set the redCar
+		   board.setColumnIndex(redCar, initialRed[0]);
+		   board.setRowIndex(redCar, initialRed[1]);
+		   board.setColumnSpan(redCar, initialRed[2]);
+		   board.setRowSpan(redCar, initialRed[3]);
 	   }
 	   
 	   public void backToLastStep(ActionEvent event) {
