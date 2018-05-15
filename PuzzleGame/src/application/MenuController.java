@@ -4,7 +4,9 @@ import java.util.*;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -14,26 +16,40 @@ import javafx.fxml.FXMLLoader;
 
 public class MenuController {
 	@FXML
-	private Text start;
+	private Button start;
 	@FXML
-	private Text help;
+	private Button help;
 	@FXML
-	private Text exit;	
-	@FXML
-	private Text setting;
+	private Button setting;
 	@FXML
 	private AnchorPane menu;
 	
-	public void initialize(MouseEvent event) {
+	@FXML
+	private Button easy;
+	@FXML
+	private Button normal;
+	@FXML
+	private Button hard;
+
+	
+	
+	
+	public void initialize(ActionEvent event) {
 		System.out.println("initialize");
 	}
+	public void selectLevel(ActionEvent event) {
+		// set visible
+		System.out.println("start clicked");
+		easy.setVisible(true);
+		normal.setVisible(true);
+		hard.setVisible(true);
+
+	}
 	
-	public void start(MouseEvent event) {
-		System.out.println("Start clicked");
+	public void start(ActionEvent event) {
+		System.out.println("Level selected");
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MyScene.fxml"));
-			MyController controller = new MyController();
-			loader.setController(controller);
 			Parent root = loader.load();
 			Scene scene = new Scene(root,600,600);
 			Stage stage = (Stage) menu.getScene().getWindow();
@@ -45,15 +61,12 @@ public class MenuController {
 		
 	}
 	
-	public void help(MouseEvent event) {
+	public void help(ActionEvent event) {
 		System.out.println("help clicked");
 	}
 	
-	public void setting(MouseEvent event) {
+	public void setting(ActionEvent event) {
 		System.out.println("setting clicked");
 	}
-	
-	public void exit(MouseEvent event) {
-		System.out.println("exit clicked");
-	}
+
 }

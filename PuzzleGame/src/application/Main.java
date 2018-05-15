@@ -11,11 +11,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			/*
-			 * at the time, we set up all vehicles manually from fxml, in the further stage, 
-			 * we need to generate vehicles from code in back stage
-			 */
-				
 			
 			/*
 			 * set up UI viewer

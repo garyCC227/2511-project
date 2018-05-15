@@ -12,8 +12,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.*;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.scene.layout.*;
 
 public class MyController {
@@ -28,7 +32,10 @@ public class MyController {
 	   @FXML
 	   private Button solution;
 	   @FXML
+	   private Button returnMenu;
+	   @FXML
 	   private GridPane board;
+	   
 	   @FXML
 	   private Rectangle v0;
 	   @FXML
@@ -52,12 +59,12 @@ public class MyController {
 	   //board data
 	   private Board newGame;
 	   private ArrayList<Rectangle> rList;
-	   private ArrayList<Integer[]> initialData;
-	   private Integer[] initialRed;
+	   //private ArrayList<Integer[]> initialData;
+	   //private Integer[] initialRed;
 	   
 	   //@Override URL location, ResourceBundle resources
 	   public void initialize() {
-		   initialData = new ArrayList<Integer[]>();
+		   //initialData = new ArrayList<Integer[]>();
 		   rList = new ArrayList<>(8);
 		   rList.add(v0);
 		   rList.add(v1);
@@ -82,7 +89,7 @@ public class MyController {
 			   
 			   // setting
 			   if (isRed == true) {
-				   initialRed = new Integer[4];
+				   //initialRed = new Integer[4];
 				   rec = redCar;
 				   i--; // to offset the auto inc since the redcar is not in the list
 				   		// it should not affect the index
@@ -108,7 +115,7 @@ public class MyController {
 				   data[3]=size;				   
 			   }
 			   
-			   if (isRed == true) {
+			  /* if (isRed == true) {
 				   initialRed[0] = data[0];
 				   initialRed[1] = data[1];
 				   initialRed[2] = data[2];
@@ -116,7 +123,7 @@ public class MyController {
 				   
 			   } else {
 				   initialData.add(data);
-			   }
+			   }*/
 			   // after all setting set it as visible
 			   rec.setVisible(true);
 			   i++;
@@ -169,18 +176,34 @@ public class MyController {
 			   GridPane.setRowIndex(currV, (int)r + 1);
 		   }
 		   
-		   Rectangle currh = (Rectangle)event.getSource();
 	       Integer row = GridPane.getRowIndex((Rectangle)event.getSource());
 	       Integer col = GridPane.getColumnIndex((Rectangle)event.getSource());
 	       
+	       // if it reach the exit entry
+	       // col != 5 since this is the index of head need to consider size
+	       if(currV.equals(redCar) && row == 2 && col == 4) {
+	    	   System.out.println("SUCCEDD");
+	    	   try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/finish.fxml"));
+					Parent dialog = loader.load();
+					Scene scene = new Scene(dialog,500,300);
+					Stage stage = new Stage();
+					stage.setScene(scene);
+					stage.show();
+					
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+	       }
 	       
-	       System.out.println( "After Moved: "+ currh.getId()+ ", "+ col + ", "+ row);
+	       System.out.println( "After Moved: "+ currV.getId()+ ", "+ col + ", "+ row);
 	   }
 	   
 	   public void restart(ActionEvent event) {
 		   System.out.println("restart clicked!");
 		   // restart the board looking (UI)
 		   // initialData : 0-col 1-row, 2-colspan, 3-rowspan
+		   /*
 		   ArrayList<Vehicle> vList = newGame.getVehicleList();
 		   for (int i = 0; i < rList.size(); i++) {
 			   board.setColumnIndex(rList.get(i), initialData.get(i)[0]);
@@ -198,6 +221,27 @@ public class MyController {
 		   board.setRowIndex(redCar, initialRed[1]);
 		   board.setColumnSpan(redCar, initialRed[2]);
 		   board.setRowSpan(redCar, initialRed[3]);
+		   */
+	   }
+		
+	   public void returnMenu(ActionEvent event) {
+		   System.out.println("return Menu clicked!");
+		   try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MenuPage.fxml"));
+				Parent root = loader.load();
+				Scene scene = new Scene(root,600,600);
+				Stage stage = (Stage) board.getScene().getWindow();
+				stage.setScene(scene);
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		   
+	   }
+	   
+	   public void forward(ActionEvent event) {
+		   System.out.println("forward clicked!");
+		   
 	   }
 	   
 	   public void backToLastStep(ActionEvent event) {
