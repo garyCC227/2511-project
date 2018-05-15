@@ -14,6 +14,10 @@ public class Board {
     private static final int HEAD = 0;
     private static final int Y_COORD = 1;
     private static final int X_COORD = 0;
+    private static final int DIRECTION_UP = 0;
+    private static final int DIRECTION_RIGHT = 1;
+    private static final int DIRECTION_DOWN = 2;
+    private static final int DIRECTION_LEFT = 3;
     // add Arraylist of vehicles
 
     public Board() {
@@ -360,6 +364,31 @@ public class Board {
         }
 
         return true;
+    }
+    
+    public ArrayList<Move> getAllMoves() {
+	ArrayList<Move> allMoves = new ArrayList<Move>();
+	Move newMove;
+	for (Vehicle v : this.vehicleList) {
+	    if (canMoveUp(v)) {
+		newMove = new Move(v, DIRECTION_UP);
+		allMoves.add(newMove);
+	    }
+	    if (canMoveRight(v)) {
+		newMove = new Move(v, DIRECTION_RIGHT);
+		allMoves.add(newMove);
+	    }
+	    if (canMoveDown(v)) {
+		newMove = new Move(v, DIRECTION_DOWN);
+		allMoves.add(newMove);
+	    }
+	    if (canMoveLeft(v)) {
+		newMove = new Move(v, DIRECTION_LEFT);
+		allMoves.add(newMove);
+	    }
+	}
+	
+	return allMoves;
     }
 
     // ===================== temp use
