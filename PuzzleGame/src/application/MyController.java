@@ -102,6 +102,7 @@ public class MyController {
 		   rList.add(v15);
 		   rList.add(v16);
 		   
+		   //change later
 		   newGame = new Board();
 		   newGame.generateBoard();
 		   int i = 0;
