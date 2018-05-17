@@ -52,6 +52,24 @@ public class MyController {
 	   private Rectangle v6;
 	   @FXML
 	   private Rectangle v7;
+	   @FXML
+	   private Rectangle v8;
+	   @FXML
+	   private Rectangle v9;
+	   @FXML
+	   private Rectangle v10;
+	   @FXML
+	   private Rectangle v11;
+	   @FXML
+	   private Rectangle v12;
+	   @FXML
+	   private Rectangle v13;
+	   @FXML
+	   private Rectangle v14;
+	   @FXML
+	   private Rectangle v15;
+	   @FXML
+	   private Rectangle v16;
 	   
 	   @FXML
 	   private Rectangle redCar;
@@ -74,6 +92,15 @@ public class MyController {
 		   rList.add(v5);
 		   rList.add(v6);
 		   rList.add(v7);
+		   rList.add(v8);
+		   rList.add(v9);
+		   rList.add(v10);
+		   rList.add(v11);
+		   rList.add(v12);
+		   rList.add(v13);
+		   rList.add(v14);
+		   rList.add(v15);
+		   rList.add(v16);
 		   
 		   newGame = new Board();
 		   newGame.generateBoard();
