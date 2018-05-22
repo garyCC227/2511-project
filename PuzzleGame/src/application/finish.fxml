@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="dialogBoard" prefHeight="300.0" prefWidth="500.0" style="-fx-background-image: url('file:D:/Users/jun/eclipse/workspace/PuzzleGame/finish.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DialogController">
+<AnchorPane fx:id="dialogBoard" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <Button fx:id="nextGame" layoutX="100.0" layoutY="211.0" mnemonicParsing="false" onAction="#nextGame" prefHeight="45.0" prefWidth="108.0" style="-fx-background-color: #ffe4e1;" text="Next Game" textAlignment="CENTER">
          <font>

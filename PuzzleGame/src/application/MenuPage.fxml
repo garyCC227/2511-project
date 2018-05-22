@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="menu" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-image: url('file:D:/Users/jun/eclipse/workspace/PuzzleGame/background1.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
+<AnchorPane fx:id="menu" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
    <children>
       <Text fontSmoothingType="LCD" layoutX="140.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grid Lock" textAlignment="CENTER" wrappingWidth="320.263671875">
          <font>

@@ -35,6 +35,8 @@ public class MyController {
 	   private Button returnMenu;
 	   @FXML
 	   private GridPane board;
+	   @FXML
+	   private AnchorPane myGamePage;
 	   
 	   @FXML
 	   private Rectangle v0;
@@ -102,7 +104,6 @@ public class MyController {
 		   rList.add(v15);
 		   rList.add(v16);
 		   
-		   //change later
 		   newGame = new Board();
 		   newGame.generateBoard();
 		   int i = 0;
@@ -213,6 +214,8 @@ public class MyController {
 	    	   System.out.println("SUCCEDD");
 	    	   try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/finish.fxml"));
+					DialogController controller = new DialogController(myGamePage);
+					loader.setController(controller);
 					Parent dialog = loader.load();
 					Scene scene = new Scene(dialog,500,300);
 					Stage stage = new Stage();

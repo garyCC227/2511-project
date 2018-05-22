@@ -4,12 +4,10 @@ import java.util.*;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.fxml.FXMLLoader;
@@ -30,12 +28,15 @@ public class MenuController {
 	private Button normal;
 	@FXML
 	private Button hard;
-
 	
 	
-	
-	public void initialize(ActionEvent event) {
-		System.out.println("initialize");
+	public void initialize(/*ActionEvent event*/) {
+		System.out.println("initialize");//getClass().getResourceAsStream(
+		Image pic = new Image("/application/background1.jpg",600,600, true,true); 
+		BackgroundImage background = new BackgroundImage(pic, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);
+		menu.setBackground(new Background(background));
+		
 	}
 	public void selectLevel(ActionEvent event) {
 		// set visible

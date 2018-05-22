@@ -15,7 +15,6 @@ public class Main extends Application {
 			/*
 			 * set up UI viewer
 			 */
-			//FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MyScene.fxml"));
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MenuPage.fxml"));
 			//MyController controller = new MyController();
 			//loader.setController(controller);
