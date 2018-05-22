@@ -120,7 +120,7 @@ public class BoardGenerator {
 		}
 	    }
 	    
-	    //if(i == 3000) {break;}
+	    if(i == 3000) {break;}
 
 	}
 	System.out.println(" bfs times: " + i);

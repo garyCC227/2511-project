@@ -451,34 +451,54 @@ public class Board {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof Board)) {
-	    return false;
-	}
-
-	Board b = (Board) obj;
-	Vehicle[][] bBoard = b.board;
-
-	if (bBoard == null) {
-	    return false;
-	} else {
-
-	    Vehicle[][] aBoard = this.board;
-
-	    for (int i = 0; i < 6; i++) {
-		for (int j = 0; j < 6; j++) {
-		    if (aBoard[i][j] == null && bBoard[i][j] != null) {
-			return false;
-		    }
-		    if (aBoard[i][j] != null && bBoard[i][j] == null) {
-			return false;
-		    }
+		if (!(obj instanceof Board)) {
+		    return false;
 		}
-	    }
-	    return true;
-	}
+	
+		Board b = (Board) obj;
+		Vehicle[][] bBoard = b.board;
+	
+		if (bBoard == null) {
+		    return false;
+		} else {
+	
+		    Vehicle[][] aBoard = this.board;
+	
+		    for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 6; j++) {
+			    if (aBoard[i][j] == null && bBoard[i][j] != null) {
+				return false;
+			    }
+			    if (aBoard[i][j] != null && bBoard[i][j] == null) {
+				return false;
+			    }
+			}
+		    }
+		    return true;
+		}
 
     }
-
+    
+    // clone this board
+    public Board boardClone(Board oldBoard) {
+    	Board newBoard = new Board();
+    	
+    	for(Vehicle v: oldBoard.getVehicleList()) {
+    		Vehicle newVehicle = new Vehicle(v.getOrientation(), v.getSize(), 0, 0);
+    		newVehicle.setAddress(v.getAddress());
+    		if(v.getIsRedCar()) {
+    			newVehicle.setIsRedCar();
+    		}
+    		
+    		if(!newBoard.addVehicle(newVehicle)) {
+    			System.out.println("Can't clone a board");
+    		}
+    	}
+    	
+    	return newBoard;
+    }
+    
+    
     // ===================== temp use
     public void print_board() {
 	System.out.println(" 012345");

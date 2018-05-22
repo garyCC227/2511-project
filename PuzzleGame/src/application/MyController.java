@@ -13,6 +13,9 @@ import javafx.scene.input.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -82,6 +85,7 @@ public class MyController {
 	   
 	   //board data
 	   private Board newGame;
+	   private Board boardBackUp; // ( a back up for initial board state)
 	   private ArrayList<Rectangle> rList;
 	   //private ArrayList<Integer[]> initialData;
 	   //private Integer[] initialRed;
@@ -89,7 +93,7 @@ public class MyController {
 	   //@Override URL location, ResourceBundle resources
 	   public void initialize() {
 		   //initialData = new ArrayList<Integer[]>();
-		   rList = new ArrayList<>(8);
+		   rList = new ArrayList<>();
 		   rList.add(v0);
 		   rList.add(v1);
 		   rList.add(v2);
@@ -110,53 +114,13 @@ public class MyController {
 		   
 		   BoardGenerator n = new BoardGenerator(14, 40);
 		   newGame = n.generate();
+		   boardBackUp = newGame.boardClone(newGame);
 		   this.step = 0;
 		   
 		   newGame.print_board();
 		   
-		   int i = 0;
-		   for(Vehicle v: newGame.getVehicleList()) {
-			   int row = v.getAddress()[0][1]; // the y of head - row
-			   int col = v.getAddress()[0][0]; // the x of head - col
-			   int size = v.getSize();
-			   int ori = v.getOrientation(); // 0 - horizontal 1 - vertical
-			   boolean isRed = v.getIsRedCar();
-			   Rectangle rec = (Rectangle) rList.get(i);
-			   Integer[] data = new Integer[4]; // 0-col 1-row, 2-colspan, 3-rowspan
-			  
-			   // setting
-			   if (isRed == true) {
-				   System.out.println("red");
-				   //initialRed = new Integer[4];
-				   rec = redCar;
-				   i--; // to offset the auto inc since the redcar is not in the list
-				   		// it should not affect the index
-			   }  
-   
-			   // if it is horizontal
-			   if(ori == 0) {
-				   rec.setHeight(60);
-				   rec.setWidth(60*size);
-				   board.add(rec, col, row, size, 1); // node, col, row, colspan, rowspan				   
-				   data[0]=col;
-				   data[1]=row;
-				   data[2]=size;
-				   data[3]=1;
-				   
-			   } else {
-				   rec.setWidth(60);
-				   rec.setHeight(60*size);
-				   board.add(rec, col, row, 1, size);
-				   data[0]=col;
-				   data[1]=row;
-				   data[2]=1;
-				   data[3]=size;				   
-			   }
-			   
-			   // after all setting set it as visible
-			   rec.setVisible(true);
-			   i++;
-		   }
+		   //set board in UI by using board data in backstage
+		   setBoardUI(newGame);
 		   
 	   }
 	   
@@ -236,11 +200,99 @@ public class MyController {
 	       System.out.println( "After Moved: "+ currV.getId()+ ", "+ col + ", "+ row);
 	   }
 	   
+	   /*
+	    * restart the game
+	    */
 	   public void restart(ActionEvent event) {
+		   /*
+		    * how this method work:
+		    * 1. clear the old UI elements for vehicles
+		    * 2. reset UI board by using board data back up 
+		    * 3. reset user move
+		    * 4. "newGame" (which is the current game data show in UI) is pointed to a clone of board back up. - so can restart as many as we want 
+		    * ---- since restart the game, we have the same amount of UI elements(for vehicles), so we don't need to care some factor
+		    */
 		   System.out.println("restart clicked!");
 		  
+		   //clear UI elements for vehicles
+		   clearUI_Vehicles();
+		   
+		   //rebuild the board in UI by BoardBackUp( a back up of initial board state)
+		   setBoardUI(boardBackUp);
+		   
+		   /*
+		    * - let current board data point to initial board state
+		    * - reset user moves to 0
+		    */
+		   newGame = boardBackUp.boardClone(boardBackUp);
+		   this.step = 0;
+		   this.move.setText(String.valueOf(step));
+		  
 	   }
+	   
+	   /*
+	    * clear UI elements for vehicles
+	    */
+	   public void clearUI_Vehicles() {
 		
+		   Rectangle rectangle = new Rectangle();
+		   ArrayList<Node> recSet = new ArrayList<Node>(); // all vehicles in UI
+		   
+		   //get all using UI elements for vehicles
+		   for(Node node : board.getChildren()) {
+			   if(node.getClass().isInstance(rectangle)) {
+				   recSet.add(node);
+			   }
+		   }
+		   
+		   //clear them in UI board
+		   for(Node node : recSet) {
+			   board.getChildren().remove(node);
+			   board.clearConstraints(node);
+		   }
+	   }
+	   
+	   /*
+	    * build board in UI by using the data of board in backstage 
+	    */
+	   public void setBoardUI(Board boardData) {
+		   int i = 0;
+		   for(Vehicle v: boardData.getVehicleList()) {
+			   int row = v.getAddress()[0][1]; // the y of head - row
+			   int col = v.getAddress()[0][0]; // the x of head - col
+			   int size = v.getSize();
+			   int ori = v.getOrientation(); // 0 - horizontal 1 - vertical
+			   boolean isRed = v.getIsRedCar();
+			   Rectangle rec = (Rectangle) rList.get(i);
+			  
+			   // setting
+			   if (isRed == true) {
+				   rec = redCar;
+				   i--; // to offset the auto inc since the redcar is not in the list
+				   		// it should not affect the index
+			   } 
+   
+			   // if vehicle is horizontal
+			   if(ori == 0) {
+				   rec.setHeight(60);
+				   rec.setWidth(60*size);
+				   board.add(rec, col, row, size, 1); // node, col, row, colspan, rowspan				   
+				  
+			   } else {
+				// vehicle is vertical
+				   rec.setWidth(60);
+				   rec.setHeight(60*size);
+				   board.add(rec, col, row, 1, size);
+				   			   
+			   }
+			   
+			   if(!rec.isVisible()) {
+				   rec.setVisible(true);
+			   }
+			   i++;
+		   }
+	   }
+	   
 	   public void returnMenu(ActionEvent event) {
 		   System.out.println("return Menu clicked!");
 		   try {
