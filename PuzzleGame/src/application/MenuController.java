@@ -103,7 +103,7 @@ public class MenuController {
     }
 	
     public void musicInital(MediaView mv) {
-    	File file = new File("happyBirthday.mp3");
+    	File file = new File("HuLuWa.mp3");
     	String path = file.toURI().toString();
     	
     	Media media = new Media(path);
