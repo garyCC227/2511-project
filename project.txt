@@ -1,7 +1,9 @@
 need to fix:
 
-2. UI for move button;
+- need to decorate some UI elemtns:
+1. UI element for user move.  #currently, i just use button to show it
+2. UI element for music player
 
-3. did not do level chosing
+- UI element of music player in all windows?
 
-4. retangle in UI not clean yet. need to set row and col idex.
+- still need to work on level chosing

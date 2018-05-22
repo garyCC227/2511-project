@@ -40,7 +40,7 @@ public class MyController {
 	   private GridPane board;
 	   @FXML
 	   private AnchorPane myGamePage;
-	   
+
 	   @FXML
 	   private Rectangle v0;
 	   @FXML
@@ -75,21 +75,21 @@ public class MyController {
 	   private Rectangle v15;
 	   @FXML
 	   private Rectangle v16;
-	   
+
 	   @FXML
 	   private Button move;
-	   
+
 	   private int step; // how many moves by user
 	   @FXML
 	   private Rectangle redCar;
-	   
+
 	   //board data
 	   private Board newGame;
 	   private Board boardBackUp; // ( a back up for initial board state)
 	   private ArrayList<Rectangle> rList;
 	   //private ArrayList<Integer[]> initialData;
 	   //private Integer[] initialRed;
-	   
+
 	   //@Override URL location, ResourceBundle resources
 	   public void initialize() {
 		   //initialData = new ArrayList<Integer[]>();
@@ -111,32 +111,35 @@ public class MyController {
 		   rList.add(v14);
 		   rList.add(v15);
 		   rList.add(v16);
-		   
+
 		   BoardGenerator n = new BoardGenerator(14, 40);
 		   newGame = n.generate();
+
+		   // a back up for initial state of the game
 		   boardBackUp = newGame.boardClone(newGame);
+		   //initial user move to 0
 		   this.step = 0;
-		   
+
 		   newGame.print_board();
-		   
+
 		   //set board in UI by using board data in backstage
 		   setBoardUI(newGame);
-		   
+
 	   }
-	   
+
 	   /*public MyController(Board boardData) {
 		   this.boardData = boardData;
 	   }*/
-	   
+
 	   // when the mouse is pressed
 	   public void vehiclePressed(MouseEvent event) {
-		   
-	       Rectangle currV = (Rectangle)event.getSource();	       
+
+	       Rectangle currV = (Rectangle)event.getSource();
 	       System.out.println(currV.getId() + " pressed");
 	       ((Rectangle)event.getSource()).requestFocus();
-	  
+
 	   }
-	  
+
 	   // when the mouse is released
 	   public void vehicleMove(KeyEvent event) {
 		   /*
@@ -145,10 +148,10 @@ public class MyController {
 		   Rectangle currV = (Rectangle)event.getSource();
 	       Integer r = GridPane.getRowIndex((Rectangle)event.getSource());
 	       Integer c = GridPane.getColumnIndex((Rectangle)event.getSource());
-	       
+
 	       r = (int)r;
 	       c = (int)c;
-	      
+
 	       //check invalid movement from Database --- which is boardData
 	       String move = event.getCode().toString();
 	       Vehicle vehicle = newGame.getVehicle(c, r);
@@ -158,7 +161,7 @@ public class MyController {
 	       }else {
 	    	   newGame.print_board();
 	       }
-	       
+
 		   if(event.getCode() == KeyCode.RIGHT) {
 			   GridPane.setColumnIndex(currV, (int)c + 1);
 			   step+=1;
@@ -172,12 +175,12 @@ public class MyController {
 			   GridPane.setRowIndex(currV, (int)r + 1);
 			   step+=1;
 		   }
-		   
+
 		   this.move.setText(String.valueOf(step));
-		   
+
 	       Integer row = GridPane.getRowIndex((Rectangle)event.getSource());
 	       Integer col = GridPane.getColumnIndex((Rectangle)event.getSource());
-	       
+
 	       // if it reach the exit entry
 	       // col != 5 since this is the index of head need to consider size
 	       if(currV.equals(redCar) && row == 2 && col == 4) {
@@ -191,15 +194,15 @@ public class MyController {
 					Stage stage = new Stage();
 					stage.setScene(scene);
 					stage.show();
-					
+
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
 	       }
-	       
+
 	       System.out.println( "After Moved: "+ currV.getId()+ ", "+ col + ", "+ row);
 	   }
-	   
+
 	   /*
 	    * restart the game
 	    */
@@ -207,19 +210,18 @@ public class MyController {
 		   /*
 		    * how this method work:
 		    * 1. clear the old UI elements for vehicles
-		    * 2. reset UI board by using board data back up 
+		    * 2. reset UI board by using board data back up
 		    * 3. reset user move
-		    * 4. "newGame" (which is the current game data show in UI) is pointed to a clone of board back up. - so can restart as many as we want 
-		    * ---- since restart the game, we have the same amount of UI elements(for vehicles), so we don't need to care some factor
+		    * 4. "newGame" (which is the current game data show in UI) is pointed to a clone of board back up. - so can restart as many as we want
 		    */
 		   System.out.println("restart clicked!");
-		  
+
 		   //clear UI elements for vehicles
 		   clearUI_Vehicles();
-		   
-		   //rebuild the board in UI by BoardBackUp( a back up of initial board state)
+
+		   //rebuild the board in UI by BoardBackUp( a back up of initial game)
 		   setBoardUI(boardBackUp);
-		   
+
 		   /*
 		    * - let current board data point to initial board state
 		    * - reset user moves to 0
@@ -227,33 +229,33 @@ public class MyController {
 		   newGame = boardBackUp.boardClone(boardBackUp);
 		   this.step = 0;
 		   this.move.setText(String.valueOf(step));
-		  
+
 	   }
-	   
+
 	   /*
 	    * clear UI elements for vehicles
 	    */
 	   public void clearUI_Vehicles() {
-		
+
 		   Rectangle rectangle = new Rectangle();
 		   ArrayList<Node> recSet = new ArrayList<Node>(); // all vehicles in UI
-		   
+
 		   //get all using UI elements for vehicles
 		   for(Node node : board.getChildren()) {
 			   if(node.getClass().isInstance(rectangle)) {
 				   recSet.add(node);
 			   }
 		   }
-		   
+
 		   //clear them in UI board
 		   for(Node node : recSet) {
 			   board.getChildren().remove(node);
 			   board.clearConstraints(node);
 		   }
 	   }
-	   
+
 	   /*
-	    * build board in UI by using the data of board in backstage 
+	    * build board in UI by using the data of board in backstage
 	    */
 	   public void setBoardUI(Board boardData) {
 		   int i = 0;
@@ -264,35 +266,35 @@ public class MyController {
 			   int ori = v.getOrientation(); // 0 - horizontal 1 - vertical
 			   boolean isRed = v.getIsRedCar();
 			   Rectangle rec = (Rectangle) rList.get(i);
-			  
+
 			   // setting
 			   if (isRed == true) {
 				   rec = redCar;
 				   i--; // to offset the auto inc since the redcar is not in the list
 				   		// it should not affect the index
-			   } 
-   
+			   }
+
 			   // if vehicle is horizontal
 			   if(ori == 0) {
 				   rec.setHeight(60);
 				   rec.setWidth(60*size);
-				   board.add(rec, col, row, size, 1); // node, col, row, colspan, rowspan				   
-				  
+				   board.add(rec, col, row, size, 1); // node, col, row, colspan, rowspan
+
 			   } else {
 				// vehicle is vertical
 				   rec.setWidth(60);
 				   rec.setHeight(60*size);
 				   board.add(rec, col, row, 1, size);
-				   			   
+
 			   }
-			   
+
 			   if(!rec.isVisible()) {
 				   rec.setVisible(true);
 			   }
 			   i++;
 		   }
 	   }
-	   
+
 	   public void returnMenu(ActionEvent event) {
 		   System.out.println("return Menu clicked!");
 		   try {
@@ -301,18 +303,18 @@ public class MyController {
 				Scene scene = new Scene(root,600,600);
 				Stage stage = (Stage) board.getScene().getWindow();
 				stage.setScene(scene);
-				
+
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-		   
+
 	   }
-	   
+
 	   public void forward(ActionEvent event) {
 		   System.out.println("forward clicked!");
-		   
+
 	   }
-	   
+
 	   public void backToLastStep(ActionEvent event) {
 		   System.out.println("next Step clicked!");
 	   }
@@ -325,6 +327,6 @@ public class MyController {
 	   public void getSetting(ActionEvent event) {
 		   System.out.println("get setting clicked!");
 	   }
-	   
+
 
 }
