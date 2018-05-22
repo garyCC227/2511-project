@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="board" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HelpController">
+   <children>
+      <Button fx:id="returnMenu" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="288.0" layoutY="491.0" mnemonicParsing="false" onAction="#returnMenu" style="-fx-background-color: #ffe4e1; -fx-background-radius: 15;" text="returnMenu" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Text layoutX="227.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HELP">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
+      <Text layoutX="43.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="we can write how to play the game" textAlignment="CENTER" wrappingWidth="289.57666015625" />
+   </children>
+</AnchorPane>

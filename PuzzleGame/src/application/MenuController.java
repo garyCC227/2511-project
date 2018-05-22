@@ -62,9 +62,20 @@ public class MenuController {
 		
 	}
 	
-	public void help(ActionEvent event) {
-		System.out.println("help clicked");
-	}
+    public void help(ActionEvent event) {
+        System.out.println("help clicked");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/HelpPage.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root,600,600);
+            Stage stage = (Stage) menu.getScene().getWindow();
+            stage.setScene(scene);
+            
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 	
 	public void setting(ActionEvent event) {
 		System.out.println("setting clicked");
