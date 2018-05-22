@@ -45,7 +45,7 @@
             <Font name="Indie Flower" size="18.0" />
          </font>
       </Button>
-      <ToggleButton fx:id="musicOn" layoutX="410.0" layoutY="250.0" mnemonicParsing="false" onAction="#musicOn" prefHeight="20.0" prefWidth="50.0" selected="true" style="-fx-background-color: #b0c4de; -fx-background-radius: 5;" text="On">
+      <ToggleButton fx:id="musicOn" layoutX="410.0" layoutY="250.0" mnemonicParsing="false" onAction="#musicOn" prefHeight="20.0" prefWidth="50.0" style="-fx-background-color: #b0c4de; -fx-background-radius: 5;" text="On">
          <font>
             <Font name="Segoe Script" size="12.0" />
          </font>

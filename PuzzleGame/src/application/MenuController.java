@@ -97,26 +97,23 @@ public class MenuController {
 	public void musicOn(ActionEvent event) {
 		System.out.println("enable music");
 		// get current status
-		boolean status = musicOn.isSelected();
-		if(status == false) {
-			// set as musicOn selescted and disable true
-			musicOn.setSelected(true);
-			musicOff.setSelected(false);
-			musicOff.setEffect(null);
-			musicOn.setEffect(new DropShadow());
-			
-		}
+
+		// set as musicOn selescted and disable true
+		musicOff.setEffect(null);
+		musicOn.setEffect(new DropShadow());
+		musicOn.setSelected(true);
+		musicOff.setSelected(false);
+
 	}
 	public void musicOff(ActionEvent event) {
 		System.out.println("disable music");
-		boolean status = musicOff.isSelected();
-		if(status == false) {
-			// set musicOff as selescted and disable true
-			musicOff.setSelected(true);
-			musicOn.setSelected(false);
-			musicOn.setEffect(null);
-			musicOff.setEffect(new DropShadow());
-		}
+
+		// set musicOff as selescted and disable true
+		musicOn.setSelected(false);
+		musicOn.setEffect(null);
+		musicOff.setSelected(true);
+		musicOff.setEffect(new DropShadow());
+
 	}
 	
 }
