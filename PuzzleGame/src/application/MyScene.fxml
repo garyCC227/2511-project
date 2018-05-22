@@ -81,5 +81,10 @@
             <Font name="Indie Flower" size="24.0" />
          </font>
       </Button>
+      <Button fx:id="move" focusTraversable="false" layoutX="463.0" layoutY="14.0" mnemonicParsing="false" onAction="#restart" prefHeight="42.0" prefWidth="107.0" style="-fx-background-color: #ffe4e1;" text="0">
+         <font>
+            <Font name="Indie Flower" size="22.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package application;
 
+import java.io.File;
 import java.util.*;
 
 import javafx.scene.Parent;
@@ -13,6 +14,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
+import javafx.scene.media.MediaView;
 import javafx.fxml.FXMLLoader;
 
 public class MenuController {
@@ -40,6 +45,12 @@ public class MenuController {
 	@FXML
 	private ToggleGroup music;
 	
+	 private MediaPlayer mp;
+	@FXML 
+	private MediaView mv;
+	
+	
+	
 	public void initialize(/*ActionEvent event*/) {
 		System.out.println("initialize");//getClass().getResourceAsStream(
 		Image pic = new Image("/application/background1.jpg",600,600, true,true); 
@@ -49,6 +60,7 @@ public class MenuController {
 		//music = new ToggleGroup();
 		//musicOn.setToggleGroup(music);
 		//musicOff.setToggleGroup(music);
+		 musicInital(mv);
 		
 	}
 	public void selectLevel(ActionEvent event) {
@@ -90,6 +102,17 @@ public class MenuController {
         }
     }
 	
+    public void musicInital(MediaView mv) {
+    	File file = new File("happyBirthday.mp3");
+    	String path = file.toURI().toString();
+    	
+    	Media media = new Media(path);
+    	mp = new MediaPlayer(media);
+    	mp.setAutoPlay(true);
+    	
+    	mv.setMediaPlayer(mp);
+    }
+    
 	public void setting(ActionEvent event) {
 		System.out.println("setting clicked");
 	}
@@ -97,22 +120,29 @@ public class MenuController {
 	public void musicOn(ActionEvent event) {
 		System.out.println("enable music");
 		// get current status
-
-		// set as musicOn selescted and disable true
-		musicOff.setEffect(null);
-		musicOn.setEffect(new DropShadow());
-		musicOn.setSelected(true);
-		musicOff.setSelected(false);
-
+		
+		Status status = mp.getStatus();
+		
+		if ( status == Status.PAUSED
+	         || status == Status.READY
+	         || status == Status.STOPPED)
+	          {
+	            mp.play();
+	          }
 	}
 	public void musicOff(ActionEvent event) {
 		System.out.println("disable music");
-
-		// set musicOff as selescted and disable true
-		musicOn.setSelected(false);
-		musicOn.setEffect(null);
-		musicOff.setSelected(true);
-		musicOff.setEffect(new DropShadow());
+		 Status status = mp.getStatus();
+		
+		if ( status == Status.PAUSED
+	             || status == Status.READY
+	             || status == Status.STOPPED)
+	    {
+	            
+	    } else {
+	    	mp.pause();
+	    }
+	         
 
 	}
 	

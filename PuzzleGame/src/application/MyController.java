@@ -74,6 +74,10 @@ public class MyController {
 	   private Rectangle v16;
 	   
 	   @FXML
+	   private Button move;
+	   
+	   private int step; // how many moves by user
+	   @FXML
 	   private Rectangle redCar;
 	   
 	   //board data
@@ -104,10 +108,10 @@ public class MyController {
 		   rList.add(v15);
 		   rList.add(v16);
 		   
-		   newGame = new Board();
-		   newGame.generateBoard();
 		   BoardGenerator n = new BoardGenerator(14, 40);
 		   newGame = n.generate();
+		   this.step = 0;
+		   
 		   newGame.print_board();
 		   
 		   int i = 0;
@@ -193,13 +197,19 @@ public class MyController {
 	       
 		   if(event.getCode() == KeyCode.RIGHT) {
 			   GridPane.setColumnIndex(currV, (int)c + 1);
+			   step+=1;
 		   }else if(event.getCode() == KeyCode.LEFT) {
 			   GridPane.setColumnIndex(currV, (int)c - 1);
+			   step+=1;
 		   }else if(event.getCode() == KeyCode.UP) {
 			   GridPane.setRowIndex(currV, (int)r - 1);
+			   step+=1;
 		   }else if(event.getCode() == KeyCode.DOWN) {
 			   GridPane.setRowIndex(currV, (int)r + 1);
+			   step+=1;
 		   }
+		   
+		   this.move.setText(String.valueOf(step));
 		   
 	       Integer row = GridPane.getRowIndex((Rectangle)event.getSource());
 	       Integer col = GridPane.getColumnIndex((Rectangle)event.getSource());
@@ -228,27 +238,7 @@ public class MyController {
 	   
 	   public void restart(ActionEvent event) {
 		   System.out.println("restart clicked!");
-		   // restart the board looking (UI)
-		   // initialData : 0-col 1-row, 2-colspan, 3-rowspan
-		   /*
-		   ArrayList<Vehicle> vList = newGame.getVehicleList();
-		   for (int i = 0; i < rList.size(); i++) {
-			   board.setColumnIndex(rList.get(i), initialData.get(i)[0]);
-			   board.setRowIndex(rList.get(i), initialData.get(i)[1]);
-			   board.setColumnSpan(rList.get(i), initialData.get(i)[2]);
-			   board.setRowSpan(rList.get(i), initialData.get(i)[3]);
-			   // set for the board way 1 - delete the old Board and generate a new one
-			   // set for the board way 1 - set new address for the old Board 
-			   
-			   
-		   }
-		   
-		   // set the redCar
-		   board.setColumnIndex(redCar, initialRed[0]);
-		   board.setRowIndex(redCar, initialRed[1]);
-		   board.setColumnSpan(redCar, initialRed[2]);
-		   board.setRowSpan(redCar, initialRed[3]);
-		   */
+		  
 	   }
 		
 	   public void returnMenu(ActionEvent event) {
