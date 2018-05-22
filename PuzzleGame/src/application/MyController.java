@@ -106,6 +106,10 @@ public class MyController {
 		   
 		   newGame = new Board();
 		   newGame.generateBoard();
+		   BoardGenerator n = new BoardGenerator(14, 40);
+		   newGame = n.generate();
+		   newGame.print_board();
+		   
 		   int i = 0;
 		   for(Vehicle v: newGame.getVehicleList()) {
 			   int row = v.getAddress()[0][1]; // the y of head - row
@@ -115,9 +119,10 @@ public class MyController {
 			   boolean isRed = v.getIsRedCar();
 			   Rectangle rec = (Rectangle) rList.get(i);
 			   Integer[] data = new Integer[4]; // 0-col 1-row, 2-colspan, 3-rowspan
-			   
+			  
 			   // setting
 			   if (isRed == true) {
+				   System.out.println("red");
 				   //initialRed = new Integer[4];
 				   rec = redCar;
 				   i--; // to offset the auto inc since the redcar is not in the list
@@ -144,15 +149,6 @@ public class MyController {
 				   data[3]=size;				   
 			   }
 			   
-			  /* if (isRed == true) {
-				   initialRed[0] = data[0];
-				   initialRed[1] = data[1];
-				   initialRed[2] = data[2];
-				   initialRed[3] = data[3];
-				   
-			   } else {
-				   initialData.add(data);
-			   }*/
 			   // after all setting set it as visible
 			   rec.setVisible(true);
 			   i++;

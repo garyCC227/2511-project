@@ -10,11 +10,15 @@ import javax.net.ssl.SSLException;
 
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
+import sun.nio.cs.ext.ISCII91;
+
 public class BoardGenerator {
 
     int difficulty;
     int vAmount; // amounts of vehicles
     int steps; // minimum steps we want it to be
+    Vehicle redCar ;
+
 
     private final int RULE_COL = 6;
     private final int SIZE_BOUND = 5;
@@ -38,9 +42,11 @@ public class BoardGenerator {
 
 	populateBoard(newBoard);
 	System.out.println("Input");
-	newBoard.print_board();
-	return configureBoard(newBoard);
+	newBoard = configureBoard(newBoard);
 
+	newBoard.getVehicleList().get(0).setIsRedCar();
+	
+	return newBoard;
     }
 
     // @desc: Adds random vehicles in random positions
@@ -49,7 +55,9 @@ public class BoardGenerator {
 	Vehicle redCar = new Vehicle(0, 2, 4, 2);
 	redCar.setIsRedCar();
 	b.addVehicle(redCar);
-
+	
+	this.redCar = redCar;
+	
 	int[] Vcounter = new int[1]; // count how many vertical vehicles we create
 	Vcounter[0] = 0;
 
@@ -79,11 +87,12 @@ public class BoardGenerator {
 	Board nextState = null;
 	boolean visited = true;
 	boolean planToVisit = true;
+	int i  = 0 ;
 
 	openSet.addLast(initial);
 
 	while (openSet.size() > 0) {
-
+		i++;
 	    currState = openSet.removeFirst();
 	    closedSet.add(currState);
 
@@ -110,9 +119,11 @@ public class BoardGenerator {
     		    openSet.addLast(nextState);
 		}
 	    }
+	    
+	    //if(i == 3000) {break;}
 
 	}
-
+	System.out.println(" bfs times: " + i);
 	return currState;
     }
 

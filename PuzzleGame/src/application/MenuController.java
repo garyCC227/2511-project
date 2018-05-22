@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.DropShadow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -29,6 +32,13 @@ public class MenuController {
 	@FXML
 	private Button hard;
 	
+	@FXML
+	private ToggleButton musicOn;
+	
+	@FXML
+	private ToggleButton musicOff;
+	@FXML
+	private ToggleGroup music;
 	
 	public void initialize(/*ActionEvent event*/) {
 		System.out.println("initialize");//getClass().getResourceAsStream(
@@ -36,6 +46,9 @@ public class MenuController {
 		BackgroundImage background = new BackgroundImage(pic, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 		          BackgroundSize.DEFAULT);
 		menu.setBackground(new Background(background));
+		//music = new ToggleGroup();
+		//musicOn.setToggleGroup(music);
+		//musicOff.setToggleGroup(music);
 		
 	}
 	public void selectLevel(ActionEvent event) {
@@ -80,5 +93,30 @@ public class MenuController {
 	public void setting(ActionEvent event) {
 		System.out.println("setting clicked");
 	}
-
+	
+	public void musicOn(ActionEvent event) {
+		System.out.println("enable music");
+		// get current status
+		boolean status = musicOn.isSelected();
+		if(status == false) {
+			// set as musicOn selescted and disable true
+			musicOn.setSelected(true);
+			musicOff.setSelected(false);
+			musicOff.setEffect(null);
+			musicOn.setEffect(new DropShadow());
+			
+		}
+	}
+	public void musicOff(ActionEvent event) {
+		System.out.println("disable music");
+		boolean status = musicOff.isSelected();
+		if(status == false) {
+			// set musicOff as selescted and disable true
+			musicOff.setSelected(true);
+			musicOn.setSelected(false);
+			musicOn.setEffect(null);
+			musicOff.setEffect(new DropShadow());
+		}
+	}
+	
 }
