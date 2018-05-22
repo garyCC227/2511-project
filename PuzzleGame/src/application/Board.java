@@ -300,6 +300,7 @@ public class Board {
 	// checks if there is available space on the board
 	for (int i = headX; i <= tailX; i++) {
 	    for (int j = headY; j <= tailY; j++) {
+		
 		if (board[i][j] != null) {
 		    // if vehicle address already taken, return false
 		    return false;
@@ -402,7 +403,7 @@ public class Board {
      */
     public Board getNextBoard(Move move) {
 	Vehicle vehicleToMove = move.getVehicle();
-
+	
 	Board nextBoard = new Board();
 	for (Vehicle v : this.vehicleList) {
 	    Vehicle newVehicle = new Vehicle(v.getOrientation(), v.getSize(), 0, 0);
@@ -436,6 +437,10 @@ public class Board {
 
 	return nextBoard;
     }
+    
+    public int getMovesFromSolution( ) {
+	return this.movesFromSolution;
+    }
 
     /**
      * Compares two boards to see if the state (position of all vehicles) is the
@@ -446,8 +451,9 @@ public class Board {
      */
     @Override
     public boolean equals(Object obj) {
-	if (!(obj instanceof Board))
+	if (!(obj instanceof Board)) {
 	    return false;
+	}
 
 	Board b = (Board) obj;
 	Vehicle[][] bBoard = b.board;
@@ -468,7 +474,6 @@ public class Board {
 		    }
 		}
 	    }
-
 	    return true;
 	}
 
@@ -476,7 +481,9 @@ public class Board {
 
     // ===================== temp use
     public void print_board() {
+	System.out.println(" 012345");
 	for (int i = 0; i < 6; i++) {
+	    System.out.print(i);
 	    for (int j = 0; j < 6; j++) {
 		if (board[j][i] == null) {
 		    System.out.print("-");
