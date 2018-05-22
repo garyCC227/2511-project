@@ -16,11 +16,12 @@ public class BoardGenerator {
     int vAmount; // amounts of vehicles
     int steps; // minimum steps we want it to be
 
-    private final int BOARD_BOUND = 6;
+    private final int RULE_COL = 6;
     private final int SIZE_BOUND = 5;
 
     private final int RULE1_V = -1;
     private final int RULE2_V = -2;
+    private final int RULE_VAMOUNT = -6;
 
     private final int RULE_H = -3;
     private final int RULE3_HRow = -4;
@@ -109,49 +110,106 @@ public class BoardGenerator {
     		    openSet.addLast(nextState);
 		}
 	    }
-	    
+
 	}
 
 	return currState;
     }
 
+    /*  rule to make board more difficult
+     *  - col 3 will always have a size 4 or 3 vehicle, chance to get 4 > get 3
+     *  - col 5 will always have a size 3 or 4 vehicle, chance to get 3 > get 4
+     *  - other col will have different probability for size 2, 3 ,4
+     */
+    public int getRandomSize(int whichCol) {
+    	Random random = new Random();
+    	double n;
+
+    	while(true) {
+    		n = random.nextDouble();
+
+    		// if it is col 3
+    		// chance to get size 4 = 0.7, change to get 3 = 0.3
+    		if(whichCol == 3) {
+    			if(n < .3) { return 3;}
+    			else { return 4;}
+    		}
+    		else if(whichCol == 5) {
+    		//if col 5
+    			if(n < .4) { return 4;}
+    			else { return 3;}
+    		}
+    		else {
+    		// other col
+    		// to get size 2 = 0.7, size 3 = 0.1 , size 4 = 0.05
+    			if(n < .05) { return 4;}
+    			else if(n < 0.15) { return 3;}
+    			else {return 2;}
+    		}
+    	}
+    }
+
     /*
-     * @desc: randomly number generation. but it will follow some rule. SIZE_BOUND:
-     * sum of vertical vehicles in this column. select from 2,3,4 rule for vertical
-     * vehicles generation: - RULE1_V: row select for size is 2. from 0,3,4 -
-     * RULE2_V : row select for size is 4 : from 3,4 rule for horizontal vehicles
-     * generation: - RULE_H: select car or truck
+     * @desc: randomly number generation. but it will follow some rule.
+     *  SIZE_BOUND: sum of vertical vehicles in this column. select from 2,3,4
+     *  rule for vertical vehicles generation:
+     *  - RULE1_V: row select for size is 2. from 0,3,4
+     *  - RULE2_V : row select for size is 4 : from 3,4
+     *  rule for horizontal vehicles generation:
+     *  - RULE_H: select car or truck.
+     *
+     * random selection with distributed probability
      */
     public int getRandomNumber(final int rule) {
-	int n;
-	Random random = new Random();
+    	double n;
+    	Random random = new Random();
 
-	while (true) {
-	    n = random.nextInt(6);
+    	while(true) {
+    		n = random.nextDouble();
 
-	    // randomly select size from 2,3,4
-	    if (rule == SIZE_BOUND && (n == 1 || n == 0 || n == 5)) {
-		continue;
-	    }
+    		//randomly pick how many col will contain vertical vehicles
+    		//col which contain verticall vehicle always >= 4(col amount)
+    		//chance to get 6 = 0.6, 5 = 0.3, 4=0.1
+    		if(rule == RULE_VAMOUNT ){
+    			if(n < .1) { return 4; }
+    			else if(n < .4) { return 5;}
+    			else { return 6;}
+    		}
 
-	    // randomly select row from 0,3,4 for Rule 1 vertical
-	    if (rule == RULE1_V && (n == 1 || n == 2 || n == 5)) {
-		continue;
-	    }
+    		//pick col to store vertical vehicles, return 0-5
+    		//chance for occur in col 3, 5 more
+    		//equal probability
+    		if(rule == RULE_COL) {
+    			int v = random.nextInt(6);
+    			return v;
+    		}
 
-	    // randomly select row from 3,4 for Rule 2 vertical
-	    if (rule == RULE2_V && (n == 0 || n == 1 || n == 2 || n == 5)) {
-		continue;
-	    }
+    		//randomly select row from 0,3,4 for Rule 1 vertical
+    		// make their probability equal
+    		if(rule == RULE1_V ) {
+    			if(n < 1/5) { return 4;}
+    			else if(n < 3/5) { return 0;}
+    			else {return 3;}
+    		}
 
-	    // randomly select car or truck for horizontal vehicles. 2 or 3
-	    if (rule == RULE_H && (n == 0 || n == 1 || n == 4 || n == 5)) {
-		continue;
-	    }
+    		//randomly select row from 3,4 for Rule 2 vertical
+    		//make their probability equal
+    		if(rule == RULE2_V ){
+    			if(n < .5) { return 3;}
+    			else{ return 4; }
+    		}
 
-	    break;
-	}
-	return n;
+    		//randomly select car or truck for horizontal vehicles. 2 or 3
+    		//chance to get a truck will be 0.3, car will be 0.7 for horizontal
+    		if(rule == RULE_H){
+    			if(n < .3) { return 3; }
+    			else { return 2; }
+    		}
+
+    		break;
+    	}
+    	//-1 mean unsuccessful
+    	return -1;
     }
 
     /*
@@ -191,7 +249,7 @@ public class BoardGenerator {
      * @desc: a smarter random number generator use when we generate horizontal
      * vehicles. make board generation faster use for find valid cell which is able
      * to add a horizontal car or truck in this row
-     * 
+     *
      * @return: return -1 mean this is bad row that can not store this vehicle,
      * otherwise good row
      */
@@ -249,90 +307,93 @@ public class BoardGenerator {
 	return n;
     }
 
-    // @decs: randomly generate vertical vehicles
+    //@decs: randomly generate vertical vehicles
     public boolean addVerticalVehicle(Board b, int[] Vcounter) {
 
-	/*
-	 * randomly decide how many columns will contain vertical vehicles(select from 1
-	 * - 6) and randomly decide the sum of the size of vehicles(select from 2,3,4)
-	 */
-	int i;
-	Set<Integer> set = new HashSet<Integer>(); // Set:avoid repetitive elements
-	int verticalVAmount = getRandomNumber(BOARD_BOUND) + 1; // how many columns will contain vertical vehicles
-	int[] Vsizes = new int[verticalVAmount]; // for vertical vehicles in this column, the sum of their size
-	int[] whichCol = new int[verticalVAmount];
+    	/*
+    	 * randomly decide how many columns will contain vertical vehicles(select from 1 - 6)
+    	 * and randomly decide the sum of the size of vehicles(select from 2,3,4)
+    	 */
+    	int i;
+    	Set<Integer> set = new HashSet<Integer>(); //Set:avoid repetitive elements
+    	int verticalVAmount = getRandomNumber(RULE_VAMOUNT); // how many columns will contain vertical vehicles
+    	int[] Vsizes = new int[verticalVAmount]; // for vertical vehicles in this column, the sum of their size
+    	int[] whichCol = new int[verticalVAmount];
 
-	// decide the sum of the size of vertical vehicles
-	// decide which column for the vertical vehicles
-	i = 0;
-	while (i < verticalVAmount) {
-	    Vsizes[i] = getRandomNumber(SIZE_BOUND);
-	    whichCol[i] = getRandomNumber(BOARD_BOUND);
-	    if (set.contains(whichCol[i])) {
-		continue;
-	    }
+    	//decide the sum of the size of vertical vehicles
+    	//decide which column for the vertical vehicles
+    	i = 0;
+    	while(i < verticalVAmount) {
+    		whichCol[i] = getRandomNumber(RULE_COL);
+    		if(set.contains(whichCol[i])) {
+    			continue;
+    		}
+    		Vsizes[i] = getRandomSize(whichCol[i]);
 
-	    set.add(whichCol[i]); // avoid repetitive column to be chose
-	    i += 1;
-	}
+    		set.add(whichCol[i]); // avoid repetitive column to be chose
+    		i+=1;
+    	}
 
-	/*
-	 * decide the vehicles position in this column , and create the vehicle and add
-	 * it to board rule need to follow: (for headY) -- row 2 must always be empty --
-	 * for size 2: randomly sit on row 0 or row 3 or row 4 -- rule 1 vertical -- for
-	 * size 3: must sit on row 3 -- for size 4: top vehicle must sit on row 0,
-	 * bottom vehicle sit on row 3 or row 4 --rule 2 vertical
-	 */
-	i = 0;
-	int headX, headY;
-	Vehicle Vtemp;
-	while (i < verticalVAmount) {
-	    if (Vsizes[i] == 2) {
-		headY = getRandomNumber(RULE1_V);
-		headX = whichCol[i];
-		Vtemp = new Vehicle(1, 2, headX, headY);
-		if (!b.addVehicle(Vtemp)) {
-		    System.out.println("Errno: create invalid vertical vehicle");
-		    return false;
-		}
-		Vcounter[0] += 1;
-	    } else if (Vsizes[i] == 3) {
-		headX = whichCol[i];
-		headY = 3;
-		Vtemp = new Vehicle(1, 3, headX, headY);
-		if (!b.addVehicle(Vtemp)) {
-		    System.out.println("Errno: create invalid vertical vehicle");
-		    return false;
-		}
-		Vcounter[0] += 1;
-	    } else if (Vsizes[i] == 4) {
-		// add first car
-		headX = whichCol[i];
-		headY = 0;
-		Vtemp = new Vehicle(1, 2, headX, headY);
-		if (!b.addVehicle(Vtemp)) {
-		    System.out.println("Errno: create invalid vertical vehicle");
-		    return false;
-		}
-		Vcounter[0] += 1;
 
-		// add second car
-		headX = whichCol[i];
-		headY = getRandomNumber(RULE2_V);
-		Vtemp = new Vehicle(1, 2, headX, headY);
-		if (!b.addVehicle(Vtemp)) {
-		    System.out.println("Errno: create invalid vertical vehicle");
-		    return false;
-		}
-		Vcounter[0] += 1;
-	    } else {
-		System.out.println("Errno: invalid size");
-		return false;
-	    }
+    	/*
+    	 * decide the vehicles position in this column ,
+    	 * and create the vehicle and add it to board
+    	 * rule need to follow: (for headY)
+    	 * -- row 2 must always be empty
+    	 * -- for size 2: randomly sit on row 0 or row 3 or row 4 -- rule 1 vertical
+    	 * -- for size 3: must sit on row 3
+    	 * -- for size 4: top vehicle must sit on row 0,  bottom vehicle sit on row 3 or row 4 --rule 2 vertical
+    	 */
+    	i = 0;
+    	int headX,headY;
+    	Vehicle Vtemp;
+    	while(i < verticalVAmount) {
+    		if(Vsizes[i] == 2) {
+    			headY = getRandomNumber(RULE1_V);
+    			headX = whichCol[i];
+    			Vtemp = new Vehicle(1, 2, headX, headY);
+    			if(!b.addVehicle(Vtemp)) {
+    				System.out.println("Errno: create invalid vertical vehicle");
+    				return false;
+    			}
+    			Vcounter[0]+=1;
+    		}else if(Vsizes[i] == 3) {
+    			headX = whichCol[i];
+    			headY = 3;
+    			Vtemp = new Vehicle(1, 3, headX, headY);
+    			if(!b.addVehicle(Vtemp)) {
+    				System.out.println("Errno: create invalid vertical vehicle");
+    				return false;
+    			}
+    			Vcounter[0]+=1;
+    		}else if(Vsizes[i] == 4) {
+    			// add first car
+    			headX = whichCol[i];
+    			headY = 0;
+    			Vtemp = new Vehicle(1, 2, headX, headY);
+    			if(!b.addVehicle(Vtemp)) {
+    				System.out.println("Errno: create invalid vertical vehicle");
+    				return false;
+    			}
+    			Vcounter[0]+=1;
 
-	    i += 1;
-	}
-	return true;
+    			// add second car
+    			headX = whichCol[i];
+    			headY = getRandomNumber(RULE2_V);
+    			Vtemp = new Vehicle(1, 2, headX, headY);
+    			if(!b.addVehicle(Vtemp)) {
+    				System.out.println("Errno: create invalid vertical vehicle");
+    				return false;
+    			}
+    			Vcounter[0]+=1;
+    		}else {
+    			System.out.println("Errno: invalid size " + Vsizes[i]);
+    			return false;
+    		}
+
+    		i+=1;
+    	}
+    	return true;
     }
 
     /*
