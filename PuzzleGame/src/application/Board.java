@@ -6,7 +6,7 @@ public class Board {
     private Vehicle[][] board;
     private ArrayList<Vehicle> vehicleList;
     private int movesFromSolution;
-
+//
     private static final int VERTICAL = 1;
     private static final int HORIZONTAL = 0;
     private static final int CAR = 2;
