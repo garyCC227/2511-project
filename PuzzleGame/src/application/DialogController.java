@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -17,6 +18,12 @@ import javafx.stage.Stage;
 public class DialogController {
 	@FXML
 	private AnchorPane dialogBoard;
+	@FXML
+	private Button easy;
+	@FXML
+	private Button normal;
+	@FXML
+	private Button hard;
 	
 	private AnchorPane lastScene;
 	public DialogController(AnchorPane aScene) {
@@ -32,6 +39,30 @@ public class DialogController {
 
 	public void nextGame(ActionEvent event) {
 		System.out.println("NextGame clicked");
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Myscene.fxml"));
+			Parent root = loader.load();
+			Scene gameScene = new Scene(root,600,600);
+			// close this window
+			((Stage)dialogBoard.getScene().getWindow()).close();
+			// open the menu
+			Stage stage = (Stage) lastScene.getScene().getWindow();
+			
+			stage.setScene(gameScene);
+			
+			// how to close the original stage ??
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void selectLevel(ActionEvent event) {
+		// set visible
+		System.out.println("next game clicked");
+		easy.setVisible(true);
+		normal.setVisible(true);
+		hard.setVisible(true);
+
 	}
 	
 	public void Restart(ActionEvent event) {

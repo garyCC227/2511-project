@@ -19,9 +19,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
+import java.io.File;;
+
 
 public class MyController {
 	   @FXML
@@ -86,32 +89,37 @@ public class MyController {
 	   //board data
 	   private Board newGame;
 	   private Board boardBackUp; // ( a back up for initial board state)
-	   private ArrayList<Rectangle> rList;
+	   private ArrayList<Rectangle> rList = new ArrayList<>();;
 	   //private ArrayList<Integer[]> initialData;
 	   //private Integer[] initialRed;
 
 	   //@Override URL location, ResourceBundle resources
 	   public void initialize() {
-		   //initialData = new ArrayList<Integer[]>();
-		   rList = new ArrayList<>();
-		   rList.add(v0);
-		   rList.add(v1);
-		   rList.add(v2);
-		   rList.add(v3);
-		   rList.add(v4);
-		   rList.add(v5);
-		   rList.add(v6);
-		   rList.add(v7);
-		   rList.add(v8);
-		   rList.add(v9);
-		   rList.add(v10);
-		   rList.add(v11);
-		   rList.add(v12);
-		   rList.add(v13);
-		   rList.add(v14);
-		   rList.add(v15);
-		   rList.add(v16);
-
+		   Image pic = new Image("/application/background3.jpg",600,600, false,true); 
+		   BackgroundImage background = new BackgroundImage(pic, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+			          BackgroundSize.DEFAULT);
+		   myGamePage.setBackground(new Background(background));
+		
+		   if(rList.isEmpty()) {
+			   rList.add(v0);
+			   rList.add(v1);
+			   rList.add(v2);
+			   rList.add(v3);
+			   rList.add(v4);
+			   rList.add(v5);
+			   rList.add(v6);
+			   rList.add(v7);
+			   rList.add(v8);
+			   rList.add(v9);
+			   rList.add(v10);
+			   rList.add(v11);
+			   rList.add(v12);
+			   rList.add(v13);
+			   rList.add(v14);
+			   rList.add(v15);
+			   rList.add(v16);
+		   }
+		   
 		   BoardGenerator n = new BoardGenerator(14, 40);
 		   newGame = n.generate();
 
