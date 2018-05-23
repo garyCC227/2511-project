@@ -62,5 +62,7 @@
       <MediaView fx:id="mv" fitHeight="200.0" fitWidth="200.0" layoutX="40.0" layoutY="360.0" />
       <Button fx:id="DoublePlayer" layoutX="225.0" layoutY="130.0" mnemonicParsing="false" onAction="#selectLevel" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="DoublePlayer" visible="false" />
       <Button fx:id="SinglePlayer" layoutX="228.0" layoutY="187.0" mnemonicParsing="false" onAction="#selectLevel" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="SinglePlayer" visible="false" />
+      <ProgressBar fx:id="progressbar" layoutX="184.0" layoutY="522.0" prefWidth="200.0" progress="0.0" visible="false" />
+      <Label fx:id="label" layoutX="184.0" layoutY="552.0" prefHeight="17.0" prefWidth="145.0" visible="false" />
    </children>
 </AnchorPane>

@@ -1,12 +1,16 @@
 package application;
 
 import java.io.File;
+
 import java.util.*;
 
+import javafx.concurrent.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.effect.DropShadow;
@@ -48,11 +52,14 @@ public class MenuController {
 	@FXML
 	private ToggleGroup music;
 	
-	 private MediaPlayer mp;
+	private MediaPlayer mp;
 	@FXML 
 	private MediaView mv;
-	
-	
+	@FXML
+	private ProgressBar progressbar;
+	@FXML
+	private Label label;
+	Task copyworker;
 	
 	public void initialize(/*ActionEvent event*/) {
 		System.out.println("initialize");//getClass().getResourceAsStream(
@@ -109,11 +116,23 @@ public class MenuController {
 		try {
 			DoublePlayer.setVisible(true);
 			SinglePlayer.setVisible(true);
+			label.setVisible(true);
+			progressbar.setVisible(true);
 			
 		}catch(Exception e) {
             e.printStackTrace();
         }
 	}
+	public void processbar(ActionEvent event) {
+		System.out.println("processbar click");
+		try {
+			
+		}catch(Exception e) {
+            e.printStackTrace();
+        }
+		
+	}
+	
     public void musicInital(MediaView mv) {
     		File file = new File("HuLuWa.mp3");
     		String path = file.toURI().toString();
