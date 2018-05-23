@@ -1,6 +1,7 @@
 package application;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
@@ -22,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import sun.misc.PerformanceLogger;
 import javafx.scene.layout.*;
 import java.io.File;;
 
@@ -90,8 +92,8 @@ public class MyController {
 	   private Board newGame;
 	   private Board boardBackUp; // ( a back up for initial board state)
 	   private ArrayList<Rectangle> rList = new ArrayList<>();;
-	   //private ArrayList<Integer[]> initialData;
-	   //private Integer[] initialRed;
+	   private ArrayList<Move> userMoves;
+	   private int userMovesIndex;
 
 	   //@Override URL location, ResourceBundle resources
 	   public void initialize() {
@@ -119,6 +121,9 @@ public class MyController {
 			   rList.add(v15);
 			   rList.add(v16);
 		   }
+		   
+		   userMoves = new ArrayList<Move>();
+		   userMovesIndex = -1;
 		   
 		   BoardGenerator n = new BoardGenerator(14, 40);
 		   newGame = n.generate();
@@ -150,6 +155,7 @@ public class MyController {
 
 	   // when the mouse is released
 	   public void vehicleMove(KeyEvent event) {
+		   
 		   /*
 		    * grab x, y coordinate of current focus object
 		    */
@@ -162,6 +168,7 @@ public class MyController {
 
 	       //check invalid movement from Database --- which is boardData
 	       String move = event.getCode().toString();
+	       int direction = -1;
 	       Vehicle vehicle = newGame.getVehicle(c, r);
 	       if(!newGame.movementOp(vehicle, move)) {
 	    	   System.out.println("Errno: Invalid move");
@@ -172,18 +179,34 @@ public class MyController {
 
 		   if(event.getCode() == KeyCode.RIGHT) {
 			   GridPane.setColumnIndex(currV, (int)c + 1);
+			   direction = 1;
 			   step+=1;
+			   
 		   }else if(event.getCode() == KeyCode.LEFT) {
 			   GridPane.setColumnIndex(currV, (int)c - 1);
+			   direction = 3;
 			   step+=1;
 		   }else if(event.getCode() == KeyCode.UP) {
 			   GridPane.setRowIndex(currV, (int)r - 1);
+			   direction = 0;
 			   step+=1;
 		   }else if(event.getCode() == KeyCode.DOWN) {
 			   GridPane.setRowIndex(currV, (int)r + 1);
+			   direction = 2;
 			   step+=1;
 		   }
 
+		   //record user move
+		   if(direction != -1) {
+			   Move userMove = new Move(vehicle, direction);
+			   userMovesIndex++;
+			   //Removes all forward moves after curr move
+			   for (int i = userMovesIndex; i < userMoves.size(); i++) {
+				   userMoves.remove(i);
+			   }
+			   //Add new forward move
+			   userMoves.add(userMovesIndex, userMove);
+			}
 		   this.move.setText(String.valueOf(step));
 
 	       Integer row = GridPane.getRowIndex((Rectangle)event.getSource());
@@ -235,6 +258,8 @@ public class MyController {
 		    * - reset user moves to 0
 		    */
 		   newGame = boardBackUp.boardClone(boardBackUp);
+		   userMoves = new ArrayList<Move>();
+		   userMovesIndex = -1;
 		   this.step = 0;
 		   this.move.setText(String.valueOf(step));
 
@@ -320,11 +345,115 @@ public class MyController {
 
 	   public void forward(ActionEvent event) {
 		   System.out.println("forward clicked!");
-
+		   
+		   //check if curr move is last move recorded
+		   // if there is no next move, return
+		   if (userMovesIndex + 1 > userMoves.size() - 1) {
+			   return;
+		   }
+		   
+		   //Get next move && increment index
+		   userMovesIndex++;
+		   Move nextMove = userMoves.get(userMovesIndex);
+		   
+		 //perform move
+		   Vehicle v = nextMove.getVehicle();
+		   String direction = nextMove.dirToString(); //0 up, 1 right , 2 down, 3 left
+		   int row = v.getAddress()[0][1]; // the y of head - row
+		   int col = v.getAddress()[0][0]; // the x of head - col
+		   
+		   //update data in backstage
+		   if(!newGame.movementOp(v, direction)) {
+	    	   System.out.println("Errno: Invalid move");
+	    	   return;
+	       }else {
+	    	   newGame.print_board();
+	       }
+		   
+		   //update UI
+		   Node currV = null;
+		   for(Node node : rList) {
+			   if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
+				   currV = node;
+				   break;
+			   }
+		   }
+		   
+		   if(currV != null) {
+			   if(direction == "RIGHT") {
+				   GridPane.setColumnIndex(currV, (int)col + 1);
+				   if(step >= 0) { step+=1; }
+				}else if(direction == "LEFT") {
+				   GridPane.setColumnIndex(currV, (int)col - 1);
+				   if(step >= 0) { step+=1; }
+			   }else if(direction == "UP") {
+				   GridPane.setRowIndex(currV, (int)row - 1);
+				   if(step >= 0) { step+=1; }
+			   }else if(direction == "DOWN") {
+				   GridPane.setRowIndex(currV, (int)row + 1);
+				   if(step >= 0) { step+=1; }
+			   }
+			   move.setText(String.valueOf(step));
+		   }else {
+			   System.out.println("Can't find the vehicle in UI");
+		   }
+		
 	   }
 
 	   public void backToLastStep(ActionEvent event) {
 		   System.out.println("next Step clicked!");
+		   
+		   //If there is no previous moves recorded, exit
+		   if (userMovesIndex < 0) {
+			   return;
+		   }
+		   
+		   //get previous move & decrement index
+		   Move prevMove = userMoves.get(userMovesIndex).getReverseMove();
+		   userMovesIndex--;
+		   
+		   //perform move
+		   Vehicle v = prevMove.getVehicle();
+		   String direction = prevMove.dirToString(); //0 up, 1 right , 2 down, 3 left
+		   int row = v.getAddress()[0][1]; // the y of head - row
+		   int col = v.getAddress()[0][0]; // the x of head - col
+		   
+		   //update data in backstage
+		   if(!newGame.movementOp(v, direction)) {
+	    	   System.out.println("Errno: Invalid move");
+	    	   return;
+	       }else {
+	    	   newGame.print_board();
+	       }
+		   
+		   //update UI
+		   Node currV = null;
+		   for(Node node : rList) {
+			   if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
+				   currV = node;
+				   break;
+			   }
+		   }
+		   
+		   if(currV != null) {
+			   if(direction == "RIGHT") {
+				   GridPane.setColumnIndex(currV, (int)col + 1);
+				   if(step > 0) { step-=1; }
+				}else if(direction == "LEFT") {
+				   GridPane.setColumnIndex(currV, (int)col - 1);
+				   if(step > 0) { step-=1; }
+			   }else if(direction == "UP") {
+				   GridPane.setRowIndex(currV, (int)row - 1);
+				   if(step > 0) { step-=1; }
+			   }else if(direction == "DOWN") {
+				   GridPane.setRowIndex(currV, (int)row + 1);
+				   if(step > 0) { step-=1; }
+			   }
+			   move.setText(String.valueOf(step));
+		   }else {
+			   System.out.println("Can't find the vehicle in UI");
+		   }
+		   
 	   }
 	   public void getHint(ActionEvent event) {
 		   System.out.println("get hint clicked!");

@@ -92,8 +92,10 @@ public class BoardGenerator {
 	openSet.addLast(initial);
 
 	while (openSet.size() > 0) {
+		
 		i++;
 	    currState = openSet.removeFirst();
+	    
 	    closedSet.add(currState);
 
 	    moves = currState.getAllMoves();
@@ -120,7 +122,7 @@ public class BoardGenerator {
 		}
 	    }
 	    
-	    if(i == 3000) {break;}
+	    if(i == 1000) {break;}
 
 	}
 	System.out.println(" bfs times: " + i);
