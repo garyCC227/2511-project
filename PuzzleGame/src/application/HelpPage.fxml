@@ -7,16 +7,71 @@
 
 <AnchorPane fx:id="board" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HelpController">
    <children>
-      <Button fx:id="returnMenu" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="288.0" layoutY="491.0" mnemonicParsing="false" onAction="#returnMenu" style="-fx-background-color: #ffe4e1; -fx-background-radius: 15;" text="returnMenu" textAlignment="CENTER">
+      <Button fx:id="returnMenu" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="522.0" mnemonicParsing="false" onAction="#returnMenu" style="-fx-background-color: #ffe4e1; -fx-background-radius: 15;" text="returnMenu" textAlignment="CENTER">
          <font>
-            <Font size="36.0" />
+            <Font size="24.0" />
          </font>
       </Button>
-      <Text layoutX="227.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HELP">
+      <Text layoutX="229.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HELP">
          <font>
-            <Font size="48.0" />
+            <Font name="System Bold" size="48.0" />
          </font>
       </Text>
-      <Text layoutX="43.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="we can write how to play the game" textAlignment="CENTER" wrappingWidth="289.57666015625" />
+      <Text layoutX="213.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INSTRUCTION" textAlignment="CENTER" wrappingWidth="160.57666015625">
+         <font>
+            <Font size="22.0" />
+         </font></Text>
+      <Text layoutX="46.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step1 : Player can click the rectangle for each button that you want to move." wrappingWidth="508.2017822265625">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="48.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step2 : click keyborad up down and left right  to move the rectangle.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="45.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Constrains : Player can only move to up down in vertical direction. Player can only move to left right in horizontal direction. " wrappingWidth="450.27928161621094">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="43.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step3 : the red rectangle which is target rectangle. If you want to win the game, you can move the red rectangle into the third row from the top at the extreme right." wrappingWidth="452.31861877441406">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="245.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUTTONS">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="40.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Backward : player is able to go to forward step.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="41.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restart : player is able to reset game.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="41.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hint : player is able to get one step which close to solution." />
+      <Text layoutX="40.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solution : player is able to get all solution step. " />
+      <Text layoutX="240.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADDITION">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="36.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Voice switch : you can turn on/off the music button on setting button.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="36.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Double player : the player who use less step to win game will win another one.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
