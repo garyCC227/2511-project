@@ -39,8 +39,14 @@ public class DialogController {
 
 	public void nextGame(ActionEvent event) {
 		System.out.println("NextGame clicked");
+		Button currButton = (Button)event.getSource();
+		String difficulty = currButton.getText();
+		System.out.println(" in dia diff is : " + difficulty);
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Myscene.fxml"));
+			MyController controller = new MyController();
+			controller.setDifficulty(difficulty);
+			loader.setController(controller);
 			Parent root = loader.load();
 			Scene gameScene = new Scene(root,600,600);
 			// close this window

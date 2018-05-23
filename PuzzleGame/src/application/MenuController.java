@@ -67,9 +67,6 @@ public class MenuController {
 		BackgroundImage background = new BackgroundImage(pic, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 		          BackgroundSize.DEFAULT);
 		menu.setBackground(new Background(background));
-		//music = new ToggleGroup();
-		//musicOn.setToggleGroup(music);
-		//musicOff.setToggleGroup(music);
 		 musicInital(mv);
 		
 	}
@@ -84,9 +81,18 @@ public class MenuController {
 	
 	public void start(ActionEvent event) {
 		System.out.println("Level selected");
+		/*
+		 * grab difficulty chose by user and pass into board generation
+		 */
+		Button currButton = (Button)event.getSource();
+		String difficulty = currButton.getText();
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MyScene.fxml"));
+			MyController controller = new MyController();
+			controller.setDifficulty(difficulty);
+			loader.setController(controller);
 			Parent root = loader.load();
+			
 			Scene scene = new Scene(root,600,600);
 			Stage stage = (Stage) menu.getScene().getWindow();
 			stage.setScene(scene);

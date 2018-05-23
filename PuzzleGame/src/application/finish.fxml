@@ -23,17 +23,17 @@
             <Font name="Indie Flower" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="easy" layoutX="15.0" layoutY="165.0" mnemonicParsing="false" onAction="#nextGame" style="-fx-background-color: #add8e6;" text="Easy" visible="false">
+      <Button fx:id="easy" layoutX="15.0" layoutY="165.0" mnemonicParsing="false" onAction="#nextGame" style="-fx-background-color: #add8e6;" text="EASY" visible="false">
          <font>
             <Font name="Segoe Script" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="normal" layoutX="85.0" layoutY="165.0" mnemonicParsing="false" onAction="#nextGame" style="-fx-background-color: add8e6;" text="Normal" visible="false">
+      <Button fx:id="normal" layoutX="85.0" layoutY="165.0" mnemonicParsing="false" onAction="#nextGame" style="-fx-background-color: add8e6;" text="NORMAL" visible="false">
          <font>
             <Font name="Segoe Script" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="hard" layoutX="180.0" layoutY="165.0" mnemonicParsing="false" onAction="#nextGame" style="-fx-background-color: add8e6;" text="Hard" visible="false">
+      <Button fx:id="hard" layoutX="180.0" layoutY="165.0" mnemonicParsing="false" onAction="#nextGame" style="-fx-background-color: add8e6;" text="HARD" visible="false">
          <font>
             <Font name="Segoe Script" size="13.0" />
          </font>

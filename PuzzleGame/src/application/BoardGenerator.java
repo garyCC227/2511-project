@@ -14,9 +14,8 @@ import sun.nio.cs.ext.ISCII91;
 
 public class BoardGenerator {
 
-    int difficulty;
     int vAmount; // amounts of vehicles
-    int steps; // minimum steps we want it to be
+    int bfs_times; // minimum steps we want it to be
     Vehicle redCar ;
 
 
@@ -31,102 +30,101 @@ public class BoardGenerator {
     private final int RULE3_HRow = -4;
     private final int RULE4_HTruck = -5;
 
-    public BoardGenerator(int vAmount, int steps) {
-	this.vAmount = vAmount;// vehicles amount
-	this.steps = steps;
-	this.difficulty = vAmount * steps;
+    public BoardGenerator(int vAmount, int bfs_times) {
+    	this.vAmount = vAmount;// vehicles amount
+    	this.bfs_times = bfs_times;
+    	
+    	System.out.println(vAmount + ", "+bfs_times);
     }
 
     public Board generate() {
-	Board newBoard = new Board();
-
-	populateBoard(newBoard);
-	System.out.println("Input");
-	newBoard = configureBoard(newBoard);
-
-	newBoard.getVehicleList().get(0).setIsRedCar();
+		Board newBoard = new Board();
 	
-	return newBoard;
+		populateBoard(newBoard);
+		System.out.println("Input");
+		newBoard = configureBoard(newBoard);
+	
+		newBoard.getVehicleList().get(0).setIsRedCar();
+		
+		return newBoard;
     }
 
     // @desc: Adds random vehicles in random positions
     public void populateBoard(Board b) {
-	// add red car to board
-	Vehicle redCar = new Vehicle(0, 2, 4, 2);
-	redCar.setIsRedCar();
-	b.addVehicle(redCar);
+		// add red car to board
+		Vehicle redCar = new Vehicle(0, 2, 4, 2);
+		redCar.setIsRedCar();
+		b.addVehicle(redCar);
+		
+		this.redCar = redCar;
+		
+		int[] Vcounter = new int[1]; // count how many vertical vehicles we create
+		Vcounter[0] = 0;
 	
-	this.redCar = redCar;
+		// randomly generate all vertical vehicles
+		if (!addVerticalVehicle(b, Vcounter)) {
+		    System.out.println("Errno: Can't add vertical vehicles");
+		    return;
+		}
 	
-	int[] Vcounter = new int[1]; // count how many vertical vehicles we create
-	Vcounter[0] = 0;
-
-	// randomly generate all vertical vehicles
-	if (!addVerticalVehicle(b, Vcounter)) {
-	    System.out.println("Errno: Can't add vertical vehicles");
-	    return;
-	}
-
-	// Hcounter: how many horizontal vehicles we want to create
-	System.out.println("V is " + Vcounter[0]);
-	int Hcounter = vAmount - Vcounter[0];
-	// randomly add all horizontal vehicles
-	if (!addHorizontalVehicle(Hcounter, b)) {
-	    System.out.println("Errno: Can't add horizontal vehicles");
-	    return;
-	}
+		// Hcounter: how many horizontal vehicles we want to create
+		System.out.println("V is " + Vcounter[0]);
+		int Hcounter = vAmount - Vcounter[0];
+		// randomly add all horizontal vehicles
+		if (!addHorizontalVehicle(Hcounter, b)) {
+		    System.out.println("Errno: Can't add horizontal vehicles");
+		    return;
+		}
 
     }
 
     // Finds the furthest away position by BFS
     public Board configureBoard(Board initial) {
-	LinkedList<Board> openSet = new LinkedList<Board>();
-	ArrayList<Board> closedSet = new ArrayList<Board>();
-	Board currState = null;
-	ArrayList<Move> moves;
-	Board nextState = null;
-	boolean visited = true;
-	boolean planToVisit = true;
-	int i  = 0 ;
-
-	openSet.addLast(initial);
-
-	while (openSet.size() > 0) {
+		LinkedList<Board> openSet = new LinkedList<Board>();
+		ArrayList<Board> closedSet = new ArrayList<Board>();
+		Board currState = null;
+		ArrayList<Move> moves;
+		Board nextState = null;
+		boolean visited = true;
+		boolean planToVisit = true;
+		int i  = 0 ; // curr bfs times
+	
+		openSet.addLast(initial);
+	
+		while (openSet.size() > 0) {
+			i++;
+		    currState = openSet.removeFirst();
+		    closedSet.add(currState);
+		    moves = currState.getAllMoves();
+		    for (Move m : moves) {
+				nextState = currState.getNextBoard(m);
 		
-		i++;
-	    currState = openSet.removeFirst();
-	    
-	    closedSet.add(currState);
-
-	    moves = currState.getAllMoves();
-	    for (Move m : moves) {
-		nextState = currState.getNextBoard(m);
-
-		visited = false;
-		for (Board b : closedSet) {
-		    if (nextState.equals(b)) {
-			visited = true;
-			break;
+				visited = false;
+				for (Board b : closedSet) {
+				    if (nextState.equals(b)) {
+				    	visited = true;
+				    	break;
+				    }
+				}
+	
+				planToVisit = false;
+				for (Board b : openSet) {
+					if (nextState.equals(b)) {
+					    planToVisit = true;
+					    break;
+					}
+				}
+				
+				if (!visited && !planToVisit) {
+		    		    openSet.addLast(nextState);
+				}
 		    }
+		    
+		    if(i == this.bfs_times) {break;} // bfs_time limitations
+	
 		}
-
-		planToVisit = false;
-		for (Board b : openSet) {
-			if (nextState.equals(b)) {
-			    planToVisit = true;
-			    break;
-			}
-		    }
-		if (!visited && !planToVisit) {
-    		    openSet.addLast(nextState);
-		}
-	    }
-	    
-	    if(i == 1000) {break;}
-
-	}
-	System.out.println(" bfs times: " + i);
-	return currState;
+		System.out.println(" bfs times: " + i);
+		return currState;
     }
 
     /*  rule to make board more difficult

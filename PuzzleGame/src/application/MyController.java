@@ -2,6 +2,7 @@ package application;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
@@ -94,7 +95,8 @@ public class MyController {
 	   private ArrayList<Rectangle> rList = new ArrayList<>();;
 	   private ArrayList<Move> userMoves;
 	   private int userMovesIndex;
-
+	   private String difficulty;
+	   
 	   //@Override URL location, ResourceBundle resources
 	   public void initialize() {
 		   Image pic = new Image("/application/background3.jpg",600,600, false,true); 
@@ -125,7 +127,11 @@ public class MyController {
 		   userMoves = new ArrayList<Move>();
 		   userMovesIndex = -1;
 		   
-		   BoardGenerator n = new BoardGenerator(14, 40);
+		   //randomly generate difficulty factors
+		   int[] factors = getFactorOfdifficulty(this.difficulty);
+		   int Vamount = factors[0]; // how many vehicles
+		   int bfs_time = factors[1]; // bfs times
+		   BoardGenerator n = new BoardGenerator(Vamount, bfs_time);
 		   newGame = n.generate();
 
 		   // a back up for initial state of the game
@@ -139,10 +145,50 @@ public class MyController {
 		   setBoardUI(newGame);
 
 	   }
-
-	   /*public MyController(Board boardData) {
-		   this.boardData = boardData;
-	   }*/
+	   
+	   /*
+	    * - easy model: 9-11 vehicles, bfs time = 5000;
+	    * - normal model: 12-14 vehicles, bfs time = 10000;
+	    * - hard model: 13 - 15 vehicles, vfs time = 20000;
+	    */
+	   public int[] getFactorOfdifficulty(String diffi) {
+		   int[] factors = new int[2];
+		   Random random = new Random();
+		   double n;
+		   
+		   System.out.println("diff is : "+diffi);
+		   while(true) {
+			   n = random.nextDouble();
+			   if(diffi.equals("EASY")) {
+				   System.out.println("hello");
+				   if(n < 1/3) {factors[0] = 9; }
+				   else if(n < 2/3) { factors[0] = 10;}
+				   else {factors[0] = 11;}
+				   factors[1] = 5000;
+				   break;
+			   }
+			   else if(diffi.equals("NORMAL") ) {
+				   if(n < 1/3) {factors[0] = 12; }
+				   else if(n < 2/3) { factors[0] = 13;}
+				   else {factors[0] = 14;}
+				   factors[1] = 10000;
+				   break;
+			   }
+			   else {
+				   if(n < 1/3) {factors[0] = 13; }
+				   else if(n < 2/3) { factors[0] = 14;}
+				   else {factors[0] = 15;}
+				   factors[1] = 20000;
+				   break;
+			   }
+		   }
+		   return factors;
+	   }
+	   
+	   //set difficulty
+	   public void setDifficulty(String difficulty) {
+		   this.difficulty = difficulty;
+	   }
 
 	   // when the mouse is pressed
 	   public void vehiclePressed(MouseEvent event) {
