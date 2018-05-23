@@ -36,7 +36,10 @@ public class MenuController {
 	private Button normal;
 	@FXML
 	private Button hard;
-	
+	@FXML
+	private Button DoublePlayer;
+	@FXML
+	private Button SinglePlayer;
 	@FXML
 	private ToggleButton musicOn;
 	
@@ -101,16 +104,25 @@ public class MenuController {
             e.printStackTrace();
         }
     }
-	
+	public void doubleplayer(ActionEvent event) {
+		System.out.println("double player click");
+		try {
+			DoublePlayer.setVisible(true);
+			SinglePlayer.setVisible(true);
+			
+		}catch(Exception e) {
+            e.printStackTrace();
+        }
+	}
     public void musicInital(MediaView mv) {
-    	File file = new File("HuLuWa.mp3");
-    	String path = file.toURI().toString();
+    		File file = new File("HuLuWa.mp3");
+    		String path = file.toURI().toString();
     	
-    	Media media = new Media(path);
-    	mp = new MediaPlayer(media);
-    	mp.setAutoPlay(true);
+    		Media media = new Media(path);
+    		mp = new MediaPlayer(media);
+    		mp.setAutoPlay(true);
     	
-    	mv.setMediaPlayer(mp);
+    		mv.setMediaPlayer(mp);
     }
     
 	public void setting(ActionEvent event) {
@@ -140,7 +152,7 @@ public class MenuController {
 	    {
 	            
 	    } else {
-	    	mp.pause();
+	    		mp.pause();
 	    }
 	         
 
