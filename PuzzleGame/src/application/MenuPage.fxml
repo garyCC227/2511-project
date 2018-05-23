@@ -16,7 +16,7 @@
             <Font name="Indie Flower" size="64.0" />
          </font>
       </Text>
-      <Button fx:id="start" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="143.0" maxHeight="86.0" maxWidth="200.0" minHeight="60.0" minWidth="164.0" mnemonicParsing="false" onAction="#selectLevel" prefHeight="60.0" prefWidth="120.0" style="-fx-background-color: #ffe4e1; -fx-background-radius: 15;" text="START" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+      <Button fx:id="start" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="143.0" maxHeight="86.0" maxWidth="200.0" minHeight="60.0" minWidth="164.0" mnemonicParsing="false" onAction="#doubleplayer" prefHeight="60.0" prefWidth="120.0" style="-fx-background-color: #ffe4e1; -fx-background-radius: 15;" text="START" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="Segoe Script" size="24.0" />
          </font>
@@ -31,19 +31,19 @@
             <Font name="Segoe Script" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="easy" layoutX="241.0" layoutY="162.0" mnemonicParsing="false" onAction="#start" prefHeight="42.0" prefWidth="84.0" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="EASY" visible="false">
+      <Button fx:id="easy" layoutX="348.0" layoutY="126.0" mnemonicParsing="false" onAction="#start" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="EASY" visible="false">
          <font>
-            <Font name="Indie Flower" size="18.0" />
+            <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="normal" layoutX="346.0" layoutY="162.0" mnemonicParsing="false" onAction="#start" prefHeight="42.0" prefWidth="84.0" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="NORMAL" visible="false">
+      <Button fx:id="normal" layoutX="421.0" layoutY="126.0" mnemonicParsing="false" onAction="#start" prefHeight="35.0" prefWidth="59.0" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="NORMAL" visible="false">
          <font>
-            <Font name="Indie Flower" size="18.0" />
+            <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="hard" layoutX="453.0" layoutY="162.0" mnemonicParsing="false" onAction="#start" prefHeight="42.0" prefWidth="84.0" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="HARD" visible="false">
+      <Button fx:id="hard" layoutX="496.0" layoutY="126.0" mnemonicParsing="false" onAction="#start" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="HARD" visible="false">
          <font>
-            <Font name="Indie Flower" size="18.0" />
+            <Font size="10.0" />
          </font>
       </Button>
       <ToggleButton fx:id="musicOn" layoutX="410.0" layoutY="250.0" mnemonicParsing="false" onAction="#musicOn" prefHeight="20.0" prefWidth="50.0" style="-fx-background-color: #b0c4de; -fx-background-radius: 5;" text="On">
@@ -60,5 +60,7 @@
          </font>
       </ToggleButton>
       <MediaView fx:id="mv" fitHeight="200.0" fitWidth="200.0" layoutX="40.0" layoutY="360.0" />
+      <Button fx:id="DoublePlayer" layoutX="225.0" layoutY="130.0" mnemonicParsing="false" onAction="#selectLevel" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="DoublePlayer" visible="false" />
+      <Button fx:id="SinglePlayer" layoutX="228.0" layoutY="187.0" mnemonicParsing="false" onAction="#selectLevel" style="-fx-background-color: #add8e6; -fx-background-radius: 8;" text="SinglePlayer" visible="false" />
    </children>
 </AnchorPane>
