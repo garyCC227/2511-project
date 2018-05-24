@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.media.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="menu" maxHeight="450" maxWidth="300.0" minHeight="400.0" minWidth="300.0" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="continueGame" layoutX="68.0" layoutY="63.0" mnemonicParsing="false" onAction="#continueGame" prefHeight="45.0" prefWidth="163.0" style="-fx-background-color: #ffe4e1;" text="Continue">
+         <font>
+            <Font name="Segoe Script" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="backMain" layoutX="68.0" layoutY="140.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="163.0" style="-fx-background-color: #ffe4e1;" text="Back to Main">
+         <font>
+            <Font name="Segoe Script" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="nextGame" layoutX="68.0" layoutY="220.0" mnemonicParsing="false" onAction="#selectLevel" prefHeight="45.0" prefWidth="163.0" style="-fx-background-color: #ffe4e1;" text="Next Game">
+         <font>
+            <Font name="Segoe Script" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="easy" focusTraversable="false" layoutX="29.0" layoutY="290.0" mnemonicParsing="false" onAction="#nextGame" prefHeight="35.0" prefWidth="60.0" style="-fx-background-color: #add8e6;" text="Easy" visible="false">
+         <font>
+            <Font name="Segoe Script" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="normal" focusTraversable="false" layoutX="108.0" layoutY="290.0" mnemonicParsing="false" onAction="#nextGame" prefHeight="36.0" prefWidth="79.0" style="-fx-background-color: #add8e6;" text="Normal" visible="false">
+         <font>
+            <Font name="Segoe Script" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="hard" focusTraversable="false" layoutX="205.0" layoutY="290.0" mnemonicParsing="false" onAction="#nextGame" prefHeight="36.0" prefWidth="79.0" style="-fx-background-color: #add8e6;" text="hard" visible="false">
+         <font>
+            <Font name="Segoe Script" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="music" layoutX="225.0" layoutY="346.0" mnemonicParsing="false" onAction="#musicControl" prefHeight="40.0" prefWidth="40.0" />
+      <MediaView fx:id="mv" fitHeight="20.0" fitWidth="20.0" layoutX="195.0" layoutY="356.0" />
+   </children>
+</AnchorPane>

@@ -13,6 +13,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class DialogController {
@@ -24,10 +25,12 @@ public class DialogController {
 	private Button normal;
 	@FXML
 	private Button hard;
+	private MediaPlayer mp;
 	
 	private AnchorPane lastScene;
-	public DialogController(AnchorPane aScene) {
+	public DialogController(AnchorPane aScene,MediaPlayer mp ) {
 		this.lastScene = aScene;
+		this.mp = mp;
 	}
 	public void initialize() {
 		System.out.println("initialize");//getClass().getResourceAsStream(
@@ -44,7 +47,7 @@ public class DialogController {
 		System.out.println(" in dia diff is : " + difficulty);
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Myscene.fxml"));
-			MyController controller = new MyController();
+			MyController controller = new MyController(mp);
 			controller.setDifficulty(difficulty);
 			loader.setController(controller);
 			Parent root = loader.load();
@@ -64,11 +67,16 @@ public class DialogController {
 	}
 	public void selectLevel(ActionEvent event) {
 		// set visible
-		System.out.println("next game clicked");
-		easy.setVisible(true);
-		normal.setVisible(true);
-		hard.setVisible(true);
-
+		System.out.println("start clicked");
+		if(easy.isVisible() == false) {
+			easy.setVisible(true);
+			normal.setVisible(true);
+			hard.setVisible(true);
+		} else {
+			easy.setVisible(false);
+			normal.setVisible(false);
+			hard.setVisible(false);
+		}
 	}
 	
 	public void Restart(ActionEvent event) {

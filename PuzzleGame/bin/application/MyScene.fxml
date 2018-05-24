@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="myGamePage" prefHeight="558.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" > 
+<AnchorPane fx:id="myGamePage" prefHeight="615.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"> 
    <children>
-      <GridPane fx:id="board" alignment="CENTER" blendMode="SRC_ATOP" gridLinesVisible="true" hgap="10.0" layoutX="27.0" layoutY="83.0" maxHeight="410.0" maxWidth="410.0" minHeight="410.0" minWidth="410.0" prefHeight="410.0" prefWidth="410.0" vgap="10.0">
+      <GridPane fx:id="board" alignment="CENTER" blendMode="SRC_ATOP" gridLinesVisible="true" hgap="10.0" layoutX="35.0" layoutY="125.0" maxHeight="410.0" maxWidth="410.0" minHeight="410.0" minWidth="410.0" prefHeight="410.0" prefWidth="410.0" vgap="10.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="60.0" prefWidth="100.0" />
@@ -50,40 +50,28 @@
       <Rectangle fx:id="v15" arcHeight="20.0" arcWidth="30.0" fill="ROSYBROWN" height="1.0" layoutX="570.0" layoutY="559.0" onKeyPressed="#vehicleMove" onMouseClicked="#vehiclePressed" stroke="#ebdbc700" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="5.0" visible="false" width="1.0" />
       <Rectangle fx:id="v16" arcHeight="20.0" arcWidth="30.0" fill="SANDYBROWN" height="1.0" layoutX="580.0" layoutY="569.0" onKeyPressed="#vehicleMove" onMouseClicked="#vehiclePressed" stroke="#ebdbc700" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="5.0" visible="false" width="1.0" />
       <Rectangle fx:id="redCar" arcHeight="20.0" arcWidth="30.0" fill="#ff0000" height="1.0" layoutX="520.0" layoutY="509.0" onKeyPressed="#vehicleMove" onMouseClicked="#vehiclePressed" stroke="#ebdbc700" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="5.0" visible="false" width="1.0" />
-      <Button fx:id="restart" focusTraversable="false" layoutX="493.0" layoutY="80.0" mnemonicParsing="false" onAction="#restart" prefHeight="42.0" prefWidth="107.0" style="-fx-background-color: #ffe4e1;" text="Restart">
+      <Button fx:id="solution" focusTraversable="false" layoutX="464.0" layoutY="372.0" mnemonicParsing="false" onAction="#getSolution" prefHeight="60.0" prefWidth="142.0" style="-fx-background-color: #ffe4e1;" text="Solution">
          <font>
-            <Font name="Indie Flower" size="22.0" />
+            <Font name="Segoe Script" size="24.0" />
          </font></Button>
-      <Button fx:id="setting" focusTraversable="false" layoutX="491.0" layoutY="356.0" mnemonicParsing="false" onAction="#getSetting" prefHeight="56.0" prefWidth="107.0" style="-fx-background-color: #ffe4e1;" text="Setting">
+      <Button fx:id="lastStep" focusTraversable="false" layoutX="35.0" layoutY="32.0" mnemonicParsing="false" onAction="#backToLastStep" prefHeight="56.0" prefWidth="133.0" style="-fx-background-color: #ffe4e1;" text="Backward">
          <font>
-            <Font name="Indie Flower" size="24.0" />
-         </font></Button>
-      <Button fx:id="hint" focusTraversable="false" layoutX="507.0" layoutY="166.0" mnemonicParsing="false" onAction="#getHint" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #ffe4e1;" text="Hint">
-         <font>
-            <Font name="Indie Flower" size="24.0" />
-         </font></Button>
-      <Button fx:id="solution" focusTraversable="false" layoutX="477.0" layoutY="256.0" mnemonicParsing="false" onAction="#getSolution" prefHeight="56.0" prefWidth="126.0" style="-fx-background-color: #ffe4e1;" text="Solution">
-         <font>
-            <Font name="Indie Flower" size="24.0" />
-         </font></Button>
-      <Button fx:id="lastStep" focusTraversable="false" layoutX="71.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToLastStep" prefHeight="56.0" prefWidth="133.0" style="-fx-background-color: #ffe4e1;" text="Backward">
-         <font>
-            <Font name="Indie Flower" size="24.0" />
+            <Font name="Segoe Script" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="forward" focusTraversable="false" layoutX="247.0" layoutY="14.0" mnemonicParsing="false" onAction="#forward" prefHeight="56.0" prefWidth="133.0" style="-fx-background-color: #ffe4e1;" text="Forward">
+      <Button fx:id="forward" focusTraversable="false" layoutX="312.0" layoutY="32.0" mnemonicParsing="false" onAction="#forward" prefHeight="59.0" prefWidth="133.0" style="-fx-background-color: #ffe4e1;" text="Forward">
          <font>
-            <Font name="Indie Flower" size="24.0" />
+            <Font name="Segoe Script" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="mainMenu" focusTraversable="false" layoutX="452.0" layoutY="446.0" mnemonicParsing="false" onAction="#returnMenu" prefHeight="56.0" prefWidth="171.0" style="-fx-background-color: #ffe4e1;" text="Main Menu">
+      <Button fx:id="move" focusTraversable="false" layoutX="200.0" layoutY="32.0" maxHeight="46.0" mnemonicParsing="false" onAction="#restart" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #b0e0e6;" text="0">
          <font>
-            <Font name="Indie Flower" size="24.0" />
+            <Font name="Segoe Script" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="move" focusTraversable="false" layoutX="463.0" layoutY="14.0" mnemonicParsing="false" onAction="#restart" prefHeight="42.0" prefWidth="107.0" style="-fx-background-color: #ffe4e1;" text="0">
+      <Button fx:id="menu" focusTraversable="false" layoutX="482.0" layoutY="457.0" mnemonicParsing="false" onAction="#getMenu" prefHeight="56.0" prefWidth="107.0" style="-fx-background-color: #ffe4e1;" text="Menu">
          <font>
-            <Font name="Indie Flower" size="22.0" />
+            <Font name="Segoe Script" size="24.0" />
          </font>
       </Button>
    </children>

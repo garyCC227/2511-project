@@ -24,20 +24,18 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import sun.misc.PerformanceLogger;
+//import sun.misc.PerformanceLogger;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
+
 import java.io.File;;
 
 
 public class MyController {
 	   @FXML
-	   private Button restart;
-	   @FXML
 	   private Button lastStep;
 	   @FXML
 	   private Button setting;
-	   @FXML
-	   private Button hint;
 	   @FXML
 	   private Button solution;
 	   @FXML
@@ -96,6 +94,13 @@ public class MyController {
 	   private ArrayList<Move> userMoves;
 	   private int userMovesIndex;
 	   private String difficulty;
+	  
+	   private MediaPlayer mp;
+	   
+	   public MyController(MediaPlayer mp) {
+			this.mp = mp;
+	   }
+
 	   
 	   //@Override URL location, ResourceBundle resources
 	   public void initialize() {
@@ -264,7 +269,7 @@ public class MyController {
 	    	   System.out.println("SUCCEDD");
 	    	   try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/finish.fxml"));
-					DialogController controller = new DialogController(myGamePage);
+					DialogController controller = new DialogController(myGamePage,mp);
 					loader.setController(controller);
 					Parent dialog = loader.load();
 					Scene scene = new Scene(dialog,500,300);
@@ -374,21 +379,6 @@ public class MyController {
 		   }
 	   }
 
-	   public void returnMenu(ActionEvent event) {
-		   System.out.println("return Menu clicked!");
-		   try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MenuPage.fxml"));
-				Parent root = loader.load();
-				Scene scene = new Scene(root,600,600);
-				Stage stage = (Stage) board.getScene().getWindow();
-				stage.setScene(scene);
-
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-
-	   }
-
 	   public void forward(ActionEvent event) {
 		   System.out.println("forward clicked!");
 		   
@@ -421,6 +411,10 @@ public class MyController {
 		   for(Node node : rList) {
 			   if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
 				   currV = node;
+				   break;
+			   }
+			   if(GridPane.getRowIndex(redCar) == row && GridPane.getColumnIndex(redCar) == col) {
+				   currV = redCar;
 				   break;
 			   }
 		   }
@@ -479,6 +473,10 @@ public class MyController {
 				   currV = node;
 				   break;
 			   }
+			   if(GridPane.getRowIndex(redCar) == row && GridPane.getColumnIndex(redCar) == col) {
+				   currV = redCar;
+				   break;
+			   }
 		   }
 		   
 		   if(currV != null) {
@@ -501,15 +499,25 @@ public class MyController {
 		   }
 		   
 	   }
-	   public void getHint(ActionEvent event) {
-		   System.out.println("get hint clicked!");
+	   
+	   public void getMenu() {
+		   System.out.println("getMenu clicked!");
+    	   try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/SubMenu.fxml"));
+				SubMenuController controller = new SubMenuController(myGamePage,mp);
+				loader.setController(controller);
+				Parent dialog = loader.load();
+				Scene scene = new Scene(dialog,300,450);
+				Stage stage = new Stage();
+				stage.setScene(scene);
+				stage.show();
+
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 	   }
 	   public void getSolution (ActionEvent event) {
 		   System.out.println("get solution clicked!");
 	   }
-	   public void getSetting(ActionEvent event) {
-		   System.out.println("get setting clicked!");
-	   }
-
 
 }

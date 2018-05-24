@@ -22,7 +22,7 @@ public class Main extends Application {
 			
 			Scene scene = new Scene(root,600,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Indie+Flower");
+			//scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Indie+Flower");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
