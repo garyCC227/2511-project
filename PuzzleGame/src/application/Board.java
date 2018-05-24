@@ -6,6 +6,9 @@ public class Board {
     private Vehicle[][] board;
     private ArrayList<Vehicle> vehicleList;
     private int movesFromSolution;
+    private Board prevBoard;
+    private Move prevMove;
+    private int redCarMoves;
 
     private static final int VERTICAL = 1;
     private static final int HORIZONTAL = 0;
@@ -24,6 +27,9 @@ public class Board {
         this.board = new Vehicle[6][6];
         this.vehicleList = new ArrayList<Vehicle>();
         this.movesFromSolution = 0;
+        this.prevBoard = null;
+        this.prevMove = null;
+        this.redCarMoves = 0;
     }
 
     public Vehicle[][] getBoard() {
@@ -377,6 +383,9 @@ public class Board {
         for (Vehicle v : this.vehicleList) {
             Vehicle newVehicle = new Vehicle(v.getOrientation(), v.getSize(), 0, 0);
             newVehicle.setAddress(v.getAddress());
+            if (v.getIsRedCar()) {
+            	newVehicle.setIsRedCar();
+            }
             if (v == vehicleToMove) {
                 vehicleToMove = newVehicle;
             }
@@ -402,13 +411,36 @@ public class Board {
             break;
         }
 
-        nextBoard.movesFromSolution = this.movesFromSolution++;
+        nextBoard.movesFromSolution = this.movesFromSolution + 1;
+        nextBoard.prevBoard = this;
+        nextBoard.prevMove = move;
+        if (move.getVehicle().getIsRedCar()) {
+        	nextBoard.redCarMoves = this.redCarMoves + 1;
+        }
 
         return nextBoard;
+    }
+    
+    public int getRedCarMoves() {
+    	return this.redCarMoves;
     }
 
     public int getMovesFromSolution() {
         return this.movesFromSolution;
+    }
+    
+    public ArrayList<Move> getSolutionMoves() {
+    	ArrayList<Move> solution = new ArrayList<Move>();
+    	
+    	Move move = null;
+    	Board currBoard = this;
+    	while (currBoard != null) {
+    		move = this.prevMove.getReverseMove();
+    		solution.add(move);
+    		currBoard = this.prevBoard;
+    	}
+    	
+    	return solution;
     }
 
     /**

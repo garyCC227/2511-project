@@ -1,10 +1,14 @@
 package application;
 
 import java.net.URL;
+import java.security.acl.Group;
+
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
+
+import com.sun.scenario.effect.Bloom;
 
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
@@ -147,9 +151,10 @@ public class MyController {
         int[] factors = getFactorOfdifficulty(this.difficulty);
         int Vamount = factors[0]; // how many vehicles
         int bfs_time = factors[1]; // bfs times
+        int redCarMoves = factors[2];
 
         // generate the board
-        BoardGenerator n = new BoardGenerator(Vamount, bfs_time);
+        BoardGenerator n = new BoardGenerator(Vamount, bfs_time, redCarMoves);
         newGame = n.generate();
 
         // a back up for initial state of the game
@@ -163,13 +168,16 @@ public class MyController {
         setBoardUI(newGame);
 
     }
+    
+    public void clashEffect(Rectangle rec) {
+    }
 
     /*
      * - easy model: 9-11 vehicles, bfs time = 5000; - normal model: 12-14 vehicles,
      * bfs time = 10000; - hard model: 13 - 15 vehicles, vfs time = 20000;
      */
     public int[] getFactorOfdifficulty(String diffi) {
-        int[] factors = new int[2];
+        int[] factors = new int[3];
         Random random = new Random();
         double n;
 
@@ -185,7 +193,8 @@ public class MyController {
                 } else {
                     factors[0] = 11;
                 }
-                factors[1] = 5000;
+                factors[1] = 5;
+                factors[2] = 2;
                 break;
             } else if (diffi.equals("NORMAL")) {
                 if (n < 1 / 3) {
@@ -195,7 +204,8 @@ public class MyController {
                 } else {
                     factors[0] = 14;
                 }
-                factors[1] = 10000;
+                factors[1] = 10;
+                factors[2] = 3;
                 break;
             } else {
                 if (n < 1 / 3) {
@@ -205,7 +215,8 @@ public class MyController {
                 } else {
                     factors[0] = 15;
                 }
-                factors[1] = 20000;
+                factors[1] = 15;
+                factors[2] = 5;
                 break;
             }
         }

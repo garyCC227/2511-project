@@ -16,6 +16,7 @@ public class BoardGenerator {
 
     private int vAmount; // amounts of vehicles
     private int bfs_times; // minimum steps we want it to be
+    private int redCarMoves; //minimum moves of red car
 
     private final int RULE_COL = 6;
     private final int SIZE_BOUND = 5;
@@ -28,9 +29,10 @@ public class BoardGenerator {
     private final int RULE3_HRow = -4;
     private final int RULE4_HTruck = -5;
 
-    public BoardGenerator(int vAmount, int bfs_times) {
+    public BoardGenerator(int vAmount, int bfs_times, int redCarMoves) {
         this.vAmount = vAmount;// vehicles amount
         this.bfs_times = bfs_times;
+        this.redCarMoves = redCarMoves;
     }
 
     public Board generate() {
@@ -82,6 +84,7 @@ public class BoardGenerator {
         Board nextState = null;
         boolean visited = true;
         boolean planToVisit = true;
+        int redCarHead = 0;
         int i = 0; // curr bfs times
 
         openSet.addLast(initial);
@@ -102,22 +105,27 @@ public class BoardGenerator {
                     }
                 }
 
-                planToVisit = false;
-                for (Board b : openSet) {
-                    if (nextState.equals(b)) {
-                        planToVisit = true;
-                        break;
-                    }
-                }
-
-                if (!visited && !planToVisit) {
-                    openSet.addLast(nextState);
+                if (!visited) {
+                	planToVisit = false;
+	                for (Board b : openSet) {
+	                    if (nextState.equals(b)) {
+	                        planToVisit = true;
+	                        break;
+	                    }
+	                }
+	
+	                if (!planToVisit) {
+	                    openSet.addLast(nextState);
+	                }
                 }
             }
 
-            if (i == this.bfs_times) {
-                break;
-            } // bfs_time limitations
+            if (currState.getMovesFromSolution() >= this.bfs_times && currState.getRedCarMoves() >= this.redCarMoves) {
+            	redCarHead = currState.getVehicleList().get(0).getAddress()[0][0];
+            	if (redCarHead <= (5 - redCarMoves)) {
+            		break;
+            	}
+            }
 
         }
         System.out.println(" bfs times: " + i);
