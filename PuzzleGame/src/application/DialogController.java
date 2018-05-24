@@ -87,6 +87,8 @@ public class DialogController {
 		System.out.println("return Main clicked");
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MenuPage.fxml"));
+			MenuController controller = new MenuController(mp);
+			loader.setController(controller);
 			Parent root = loader.load();
 			Scene scene = new Scene(root,600,600);
 			// close this window

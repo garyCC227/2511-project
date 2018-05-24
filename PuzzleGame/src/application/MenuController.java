@@ -65,14 +65,19 @@ public class MenuController {
 	
 	Task copyworker;
 	
+	public MenuController(MediaPlayer mp) {
+		this.mp = mp;
+	}
+	
 	public void initialize(/*ActionEvent event*/) {
 		System.out.println("initialize");//getClass().getResourceAsStream(
 		Image pic = new Image("/application/background1.jpg",600,600, true,true); 
 		BackgroundImage background = new BackgroundImage(pic, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 		          BackgroundSize.DEFAULT);
 		menu.setBackground(new Background(background));
-		musicName = "HuLuWa";
-		musicInital(mv);
+		if(mp == null) {
+			musicInital(mv);
+		}
 		
 	}
 	public void selectLevel(ActionEvent event) {
@@ -178,12 +183,16 @@ public class MenuController {
 	 public void musicInital(MediaView mv) {
 	    	System.out.println(musicName + ".mp3");
 	    	//File file = new File("HuLuWa.mp3");
+	    	if(musicName == null) {
+	    		musicName = "HuLuWa";
+	    	}
 	    	File file = new File(musicName+ ".mp3");
 	    	String path = file.toURI().toString();
 	    	
 	    	Media media = new Media(path);
 	    	mp = new MediaPlayer(media);
 	    	mp.setAutoPlay(true);
+	    	mp.setCycleCount(MediaPlayer.INDEFINITE);
 	    	
 	    	mv.setMediaPlayer(mp);
 	    }

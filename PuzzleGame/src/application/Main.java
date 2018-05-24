@@ -1,13 +1,17 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.Parent;
 
 
 public class Main extends Application {
+	private MediaPlayer mp;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -16,8 +20,8 @@ public class Main extends Application {
 			 * set up UI viewer
 			 */
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MenuPage.fxml"));
-			//MyController controller = new MyController();
-			//loader.setController(controller);
+			MenuController controller = new MenuController(mp);
+			loader.setController(controller);
 			Parent root = loader.load();
 			
 			Scene scene = new Scene(root,600,600);
