@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.paint.*?>
@@ -74,5 +75,6 @@
             <Font name="Segoe Script" size="24.0" />
          </font>
       </Button>
+      <ImageView fx:id="goalSign" fitHeight="65.0" fitWidth="65.0" layoutX="470.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

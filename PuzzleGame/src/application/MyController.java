@@ -1,12 +1,14 @@
 package application;
 
 import java.net.URL;
+import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
+import javafx.animation.RotateTransition;
 import javafx.event.*;
 
 import javafx.event.ActionEvent;
@@ -22,6 +24,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 //import sun.misc.PerformanceLogger;
@@ -82,6 +86,8 @@ public class MyController {
     private Rectangle v15;
     @FXML
     private Rectangle v16;
+    @FXML
+    private ImageView goalSign;
 
     private int step; // how many moves by user
     private Board newGame; // board data
@@ -102,7 +108,16 @@ public class MyController {
         BackgroundImage background = new BackgroundImage(pic, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         myGamePage.setBackground(new Background(background));
-
+        // set up goal image
+        Image goalPic = new Image("/application/goal.jpg", 65, 65, true, true);
+        goalSign.setImage(goalPic);
+        // tranisition animation
+        RotateTransition rt = new RotateTransition(Duration.millis(3000), goalSign);
+        rt.setByAngle(180);
+        rt.setCycleCount(RotateTransition.INDEFINITE);
+        rt.setAutoReverse(true);
+    
+        rt.play();
         // add all UI elements of vehicles to a list
         if (rList.isEmpty()) {
             rList.add(v0);
@@ -235,19 +250,19 @@ public class MyController {
             newGame.print_board();
         }
 
-        if (event.getCode() == KeyCode.RIGHT) {
+        if (event.getCode() == KeyCode.RIGHT ) {
             GridPane.setColumnIndex(currV, (int) c + 1);
             direction = 1;
             step += 1;
-        } else if (event.getCode() == KeyCode.LEFT) {
+        } else if (event.getCode() == KeyCode.LEFT ) {
             GridPane.setColumnIndex(currV, (int) c - 1);
             direction = 3;
             step += 1;
-        } else if (event.getCode() == KeyCode.UP) {
+        } else if (event.getCode() == KeyCode.UP ) {
             GridPane.setRowIndex(currV, (int) r - 1);
             direction = 0;
             step += 1;
-        } else if (event.getCode() == KeyCode.DOWN) {
+        } else if (event.getCode() == KeyCode.DOWN ) {
             GridPane.setRowIndex(currV, (int) r + 1);
             direction = 2;
             step += 1;

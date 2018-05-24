@@ -135,23 +135,6 @@ public class MenuController {
             e.printStackTrace();
         }
     }
-	public void doubleplayer(ActionEvent event) {
-
-	}
-	
-	public Task createWorker() {
-	        return new Task() {
-	            @Override
-	            protected Object call() throws Exception {
-	                for (int i = 0; i < 10; i++) {
-	                    Thread.sleep(2000);
-	                    updateMessage("2000 milliseconds");
-	                    updateProgress(i + 1, 10);
-	                }
-	                return true;
-	            }
-	        };
-	   }
 	 
 	public void musicSelect(ActionEvent event) {
 	    System.out.println("music selection");
