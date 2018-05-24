@@ -15,67 +15,54 @@ public class Vehicle {
     private static final int HORIZONTAL = 0;
 
     public Vehicle(int orientation, int size, int headX, int headY) {
-	this.orientation = orientation;
-	this.size = size;
-	this.address = new int[2][2];
-	set_address(headX, headY, size, orientation);
-	isRedCar = false;
+		this.orientation = orientation;
+		this.size = size;
+		this.address = new int[2][2];
+		set_address(headX, headY, size, orientation);
+		isRedCar = false;
     }
 
     public int getSize() {
-	return this.size;
+    	return this.size;
     }
 
     public int getOrientation() {
-	return this.orientation;
+    	return this.orientation;
     }
 
     public int[][] getAddress() {
-	return this.address;
+    	return this.address;
     }
 
     public void setAddress(int[][] address) {
-	// copies address
-	for (int i = 0; i < 2; i++) {
-	    for (int j = 0; j < 2; j++) {
-		this.address[i][j] = address[i][j];
-	    }
-	}
+		// copies address
+		for (int i = 0; i < 2; i++) {
+		    for (int j = 0; j < 2; j++) {
+			this.address[i][j] = address[i][j];
+		    }
+		}
     }
 
-    // ====================temp
-    public void print() {
-	System.out.println("vehicles: car");
-	if (orientation == 0) {
-	    System.out.println("horizontal");
-	} else {
-	    System.out.println("vertical");
-	}
-
-	System.out.println("head coor: (" + address[0][0] + "," + address[0][1] + ")");
-	System.out.println("tail corr: (" + address[1][0] + "," + address[1][1] + ")");
-    }
 
     public void set_address(int headX, int headY, int size, int ori) {
-	if (ori == HORIZONTAL) {
-	    this.address[HEAD][X_COORD] = headX;
-	    this.address[HEAD][Y_COORD] = headY;
-	    this.address[TAIL][X_COORD] = headX + size - 1;
-	    this.address[TAIL][Y_COORD] = headY;
-	} else if (ori == VERTICAL) {
-	    this.address[HEAD][X_COORD] = headX;
-	    this.address[HEAD][Y_COORD] = headY;
-	    this.address[TAIL][X_COORD] = headX;
-	    this.address[TAIL][Y_COORD] = headY + size - 1;
-	}
+		if (ori == HORIZONTAL) {
+		    this.address[HEAD][X_COORD] = headX;
+		    this.address[HEAD][Y_COORD] = headY;
+		    this.address[TAIL][X_COORD] = headX + size - 1;
+		    this.address[TAIL][Y_COORD] = headY;
+		} else if (ori == VERTICAL) {
+		    this.address[HEAD][X_COORD] = headX;
+		    this.address[HEAD][Y_COORD] = headY;
+		    this.address[TAIL][X_COORD] = headX;
+		    this.address[TAIL][Y_COORD] = headY + size - 1;
+		}
     }
 
-    // =======
     public void setIsRedCar() {
-	this.isRedCar = true;
+    	this.isRedCar = true;
     }
 
     public boolean getIsRedCar() {
-	return this.isRedCar;
+    	return this.isRedCar;
     }
 }

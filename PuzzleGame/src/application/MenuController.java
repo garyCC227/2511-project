@@ -135,28 +135,9 @@ public class MenuController {
             e.printStackTrace();
         }
     }
-	/*public void doubleplayer(ActionEvent event) {
-		System.out.println("double player click");
-		try {
-			DoublePlayer.setVisible(true);
-			SinglePlayer.setVisible(true);
-			
-			label.setVisible(true);
-			progressbar.setVisible(true);
-			progressbar.setProgress(0.0);
-			copyworker = createWorker();
-			progressbar.progressProperty().unbind();
-			progressbar.progressProperty().bind(copyworker.progressProperty());
-			/*copyworker.messageProperty().addListener(new ChangeListener<String>(){
-				public void changed(ObservableValue <? extends String >observable ,String oldvalue,String newvalue) {
-					System.out.println(newvalue);
-					label.setText(newvalue);
-				}
-			}
-		}catch(Exception e) {
-            e.printStackTrace();
-        }
-	}*/
+	public void doubleplayer(ActionEvent event) {
+
+	}
 	
 	public Task createWorker() {
 	        return new Task() {
