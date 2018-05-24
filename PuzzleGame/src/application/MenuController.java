@@ -59,6 +59,7 @@ public class MenuController {
 	private ProgressBar progressbar;
 	@FXML
 	private Label label;
+	
 	Task copyworker;
 	
 	public void initialize(/*ActionEvent event*/) {
@@ -122,22 +123,36 @@ public class MenuController {
 		try {
 			DoublePlayer.setVisible(true);
 			SinglePlayer.setVisible(true);
+			
 			label.setVisible(true);
 			progressbar.setVisible(true);
-			
+			progressbar.setProgress(0.0);
+			copyworker = createWorker();
+			progressbar.progressProperty().unbind();
+			progressbar.progressProperty().bind(copyworker.progressProperty());
+			/*copyworker.messageProperty().addListener(new ChangeListener<String>(){
+				public void changed(ObservableValue <? extends String >observable ,String oldvalue,String newvalue) {
+					System.out.println(newvalue);
+					label.setText(newvalue);
+				}
+			}*/
 		}catch(Exception e) {
             e.printStackTrace();
         }
 	}
-	public void processbar(ActionEvent event) {
-		System.out.println("processbar click");
-		try {
-			
-		}catch(Exception e) {
-            e.printStackTrace();
-        }
-		
-	}
+	public Task createWorker() {
+        return new Task() {
+            @Override
+            protected Object call() throws Exception {
+                for (int i = 0; i < 10; i++) {
+                    Thread.sleep(2000);
+                    updateMessage("2000 milliseconds");
+                    updateProgress(i + 1, 10);
+                }
+                return true;
+            }
+        };
+    }
 	
     public void musicInital(MediaView mv) {
     		File file = new File("HuLuWa.mp3");
