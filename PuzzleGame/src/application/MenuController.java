@@ -123,6 +123,8 @@ public class MenuController {
         System.out.println("help clicked");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/HelpPage.fxml"));
+            HelpController controller = new HelpController(mp);
+			loader.setController(controller);
             Parent root = loader.load();
             Scene scene = new Scene(root,600,600);
             Stage stage = (Stage) menu.getScene().getWindow();
