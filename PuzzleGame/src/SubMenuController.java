@@ -59,7 +59,7 @@ public class SubMenuController {
         this.mp = mp;
     }
 
-    public void initialize() {
+    public void initialize() throws Exception {
         System.out.println("initialize");
         // set background image
         Image pic = new Image("/menu.jpeg", 300, 450, false, true);
@@ -83,17 +83,22 @@ public class SubMenuController {
         
         // set background
         // if sounds off
-        Status status = mp.getStatus();
+        try {
+        	Status status = mp.getStatus();
+        
 
-        if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-            music.setBackground(soundOffbackground);
-            music.setShape(new Circle(1.5));
-
-            // if sounds on
-        } else {
-            music.setBackground(soundOnbackground);
-            music.setShape(new Circle(1.5));
-        }
+	        if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+	            music.setBackground(soundOffbackground);
+	            music.setShape(new Circle(1.5));
+	
+	            // if sounds on
+	        } else {
+	            music.setBackground(soundOnbackground);
+	            music.setShape(new Circle(1.5));
+	        }
+        } catch (Exception e) {
+			System.out.println("Could not find media player");
+		}
 
     }
 
@@ -181,47 +186,59 @@ public class SubMenuController {
 
     }
 
-    public void musicControl(ActionEvent event) {
-        System.out.println("Adjust the background music");
-        Background curr = music.getBackground();
-        // current is on
-        if (curr.equals(soundOnbackground)) {
-            // turn off
-            musicOff();
-            // current is off
-        } else {
-            // turn on
-            musicOn();
-        }
+    public void musicControl(ActionEvent event) throws Exception {
+    	try {
+	        System.out.println("Adjust the background music");
+	        Background curr = music.getBackground();
+	        // current is on
+	        if (curr.equals(soundOnbackground)) {
+	            // turn off
+	            musicOff();
+	            // current is off
+	        } else {
+	            // turn on
+	            musicOn();
+	        }
+	    } catch (Exception e) {
+			System.out.println("Could not find media player");
+		}
     }
 
-    private void musicOn() {
-        System.out.println("enable music");
-        // set background pic
-        music.setBackground(soundOnbackground);
-        music.setShape(new Circle(1.5));
-
-        // get current status
-        Status status = mp.getStatus();
-
-        if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-            mp.play();
-        }
+    private void musicOn() throws Exception {
+    	try {
+	        System.out.println("enable music");
+	        // set background pic
+	        music.setBackground(soundOnbackground);
+	        music.setShape(new Circle(1.5));
+	
+	        // get current status
+	        Status status = mp.getStatus();
+	
+	        if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+	            mp.play();
+	        }
+    	} catch (Exception e) {
+			System.out.println("Could not find media player");
+		}
     }
 
-    private void musicOff() {
-        System.out.println("disable music");
-        // set background pic
-        music.setBackground(soundOffbackground);
-        music.setShape(new Circle(1.5));
-
-        Status status = mp.getStatus();
-
-        if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-
-        } else {
-            mp.pause();
-        }
+    private void musicOff() throws Exception {
+    	try {
+	        System.out.println("disable music");
+	        // set background pic
+	        music.setBackground(soundOffbackground);
+	        music.setShape(new Circle(1.5));
+	
+	        Status status = mp.getStatus();
+	
+	        if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+	
+	        } else {
+	            mp.pause();
+	        }
+	    } catch (Exception e) {
+			System.out.println("Could not find media player");
+		}
 
     }
 

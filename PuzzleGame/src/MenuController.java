@@ -89,7 +89,7 @@ public class MenuController {
 		
 	}
 	
-	public void initialize(/*ActionEvent event*/) {
+	public void initialize(/*ActionEvent event*/) throws Exception {
 		System.out.println("initialize");//getClass().getResourceAsStream(
 		Image pic = new Image("/background1.jpg",600,600, true,true); 
 		BackgroundImage background = new BackgroundImage(pic, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -181,26 +181,32 @@ public class MenuController {
         }
     }
 	 
-	public void musicSelect(ActionEvent event) {
-	    System.out.println("music selection");
-	    Button curr = (Button)event.getSource();
-		if(lastbtn != null) {
-        	lastbtn.setEffect(null);
-        }
-		curr.setEffect(new DropShadow());
-	    String s = ((Button)event.getSource()).getText();
-	    musicName = s ;
-	    mp.dispose();
-	    	
-	    musicInital(mv);
-	    lastbtn = curr;
+	public void musicSelect(ActionEvent event) throws Exception {
+		try {
+		    System.out.println("music selection");
+		    Button curr = (Button)event.getSource();
+			if(lastbtn != null) {
+	        	lastbtn.setEffect(null);
+	        }
+			curr.setEffect(new DropShadow());
+		    String s = ((Button)event.getSource()).getText();
+		    musicName = s ;
+		    mp.dispose();
+		    	
+		    musicInital(mv);
+		    lastbtn = curr;
+		} catch (Exception e) {
+			System.out.println("Could not find media player");
+		}
 	 }
-	 public void musicInital(MediaView mv) {
+	 public void musicInital(MediaView mv) throws Exception {
 	    	System.out.println(musicName + ".mp3");
 	    	//File file = new File("HuLuWa.mp3");
 	    	if(musicName == null) {
 	    		musicName = "HuLuWa";
 	    	}
+	    	try {
+	    	
 	    	File file = new File(musicName+ ".mp3");
 	    	String path = file.toURI().toString();
 	    	
@@ -210,6 +216,10 @@ public class MenuController {
 	    	mp.setCycleCount(MediaPlayer.INDEFINITE);
 	    	
 	    	mv.setMediaPlayer(mp);
+	    	
+	    	} catch (Exception e) {
+	    		System.out.println("Could not load media player");
+	    	}
 	    }
 	    
 		public void setting(ActionEvent event) {
@@ -234,39 +244,48 @@ public class MenuController {
 			lastbtn = curr;
 		}
 		
-		public void musicOn(ActionEvent event) {
-			System.out.println("enable music");
-			// get current status
-			musicOff.setEffect(null);
-			musicOn.setEffect(new DropShadow());
-			musicOn.setSelected(true);
-			musicOff.setSelected(false);
-			Status status = mp.getStatus();
+		public void musicOn(ActionEvent event) throws Exception {
 			
-			if ( status == Status.PAUSED
-		         || status == Status.READY
-		         || status == Status.STOPPED)
-		          {
-		            mp.play();
-		          }
+			try {
+				System.out.println("enable music");
+				// get current status
+				musicOff.setEffect(null);
+				musicOn.setEffect(new DropShadow());
+				musicOn.setSelected(true);
+				musicOff.setSelected(false);
+				Status status = mp.getStatus();
+				
+				if ( status == Status.PAUSED
+			         || status == Status.READY
+			         || status == Status.STOPPED)
+			          {
+			            mp.play();
+			          }
+			} catch (Exception e) {
+				System.out.println("Could not find media player");
+			}
 		}
-		public void musicOff(ActionEvent event) {
-			System.out.println("disable music");
-			
-			musicOff.setEffect(new DropShadow());
-			musicOn.setEffect(null);
-			musicOff.setSelected(true);
-			musicOn.setSelected(false);
-			 Status status = mp.getStatus();
-			
-			if ( status == Status.PAUSED
-		             || status == Status.READY
-		             || status == Status.STOPPED)
-		    {
-		            
-		    } else {
-		    	mp.pause();
-		    }      
+		public void musicOff(ActionEvent event) throws Exception {
+			try {
+				System.out.println("disable music");
+				
+				musicOff.setEffect(new DropShadow());
+				musicOn.setEffect(null);
+				musicOff.setSelected(true);
+				musicOn.setSelected(false);
+				 Status status = mp.getStatus();
+				
+				if ( status == Status.PAUSED
+			             || status == Status.READY
+			             || status == Status.STOPPED)
+			    {
+			            
+			    } else {
+			    	mp.pause();
+			    }      
+			} catch (Exception e) {
+				System.out.println("Could not find media player");
+			}
 		}
 		
 		public void mouseOn (MouseEvent event) {
