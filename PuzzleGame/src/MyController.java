@@ -31,6 +31,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 //import sun.misc.PerformanceLogger;
 import javafx.scene.layout.*;
@@ -358,6 +359,11 @@ public class MyController {
                 Parent dialog = loader.load();
                 Scene scene = new Scene(dialog, 500, 300);
                 Stage stage = new Stage();
+                // initialize the stage with type of modal
+                stage.initModality(Modality.APPLICATION_MODAL);
+                // set the owner of the stage
+                stage.initOwner(myGamePage.getScene().getWindow());
+
                 stage.setScene(scene);
                 stage.setTitle("This is a sub-menu");
                 stage.show();
@@ -642,6 +648,11 @@ public class MyController {
             Parent dialog = loader.load();
             Scene scene = new Scene(dialog, 300, 450);
             Stage stage = new Stage();
+            // initialize the stage with type of modal
+            stage.initModality(Modality.APPLICATION_MODAL);
+            // set the owner of the stage
+            stage.initOwner(myGamePage.getScene().getWindow());
+
             stage.setScene(scene);
             stage.setTitle("It is a game");
             stage.show();
