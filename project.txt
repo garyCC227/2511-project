@@ -1,9 +1,0 @@
-need to fix:
-
-- need to decorate some UI elemtns:
-1. UI element for user move.  #currently, i just use button to show it
-2. UI element for music player
-
-- UI element of music player in all windows?
-
-- still need to work on level chosing

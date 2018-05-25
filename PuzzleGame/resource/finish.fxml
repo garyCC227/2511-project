@@ -8,14 +8,14 @@
 
 <AnchorPane fx:id="dialogBoard" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="nextG" layoutX="205.0" layoutY="211.0" mnemonicParsing="false" onAction="#selectLevel" prefHeight="45.0" prefWidth="108.0" style="-fx-background-color: #ffe4e1;" text="Next Game" textAlignment="CENTER">
+      <Button fx:id="nextG" layoutX="205.0" layoutY="211.0" mnemonicParsing="false" onAction="#selectLevel" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: #ffe4e1;" text="Next Game" textAlignment="CENTER">
          <font>
-            <Font name="Indie Flower" size="18.0" />
+            <Font name="Segoe Script" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="mainMenu" layoutX="332.0" layoutY="211.0" mnemonicParsing="false" onAction="#returnMain" prefHeight="45.0" prefWidth="108.0" style="-fx-background-color: #ffe4e1;" text="Main Menu" textAlignment="CENTER">
+      <Button fx:id="mainMenu" layoutX="346.0" layoutY="211.0" mnemonicParsing="false" onAction="#returnMain" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #ffe4e1;" text="Main Menu" textAlignment="CENTER">
          <font>
-            <Font name="Indie Flower" size="18.0" />
+            <Font name="Segoe Script" size="18.0" />
          </font>
       </Button>
       <Button fx:id="easy" layoutX="55.0" layoutY="165.0" mnemonicParsing="false" onAction="#nextGame" style="-fx-background-color: #add8e6;" text="EASY" visible="false">

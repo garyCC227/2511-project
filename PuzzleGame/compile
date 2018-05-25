@@ -2,14 +2,16 @@
 
 # find all java source files in src directory
 FILES=$(find src -iname "*.java")
+FILES1=$(find resource -iname "*")
 
 rm -rf bin
 mkdir -p bin
 
-for resource in *
+for file in $FILES1
 do
-    echo "moving file: ${filename}"
-	
+    echo "moving file : $file"
+	cp $file bin
+    
 done
 
 
