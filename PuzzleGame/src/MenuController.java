@@ -160,12 +160,11 @@ public class MenuController {
 	
     public void help(ActionEvent event) {
         System.out.println("help clicked");
-        Button curr = (Button)event.getSource();
 		if(lastbtn != null) {
         	lastbtn.setEffect(null);
         }
-		curr.setEffect(new DropShadow());
-		lastbtn = curr;
+		help.setEffect(new DropShadow());
+		lastbtn = help;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/HelpPage.fxml"));
             HelpController controller = new HelpController(mp);
@@ -224,11 +223,10 @@ public class MenuController {
 	    
 		public void setting(ActionEvent event) {
 			System.out.println("setting clicked");
-			Button curr = (Button)event.getSource();
 			if(lastbtn != null) {
 	        	lastbtn.setEffect(null);
 	        }
-			curr.setEffect(new DropShadow());
+			setting.setEffect(new DropShadow());
             
 			if (music1.isVisible() == false) {
 				music1.setVisible(true);
@@ -241,13 +239,16 @@ public class MenuController {
 				music3.setVisible(false);
 				
 			}
-			lastbtn = curr;
+			lastbtn = setting;
 		}
 		
 		public void musicOn(ActionEvent event) throws Exception {
 			
 			try {
 				System.out.println("enable music");
+				if(lastbtn != null) {
+		        	lastbtn.setEffect(null);
+		        }
 				// get current status
 				musicOff.setEffect(null);
 				musicOn.setEffect(new DropShadow());
@@ -268,7 +269,9 @@ public class MenuController {
 		public void musicOff(ActionEvent event) throws Exception {
 			try {
 				System.out.println("disable music");
-				
+				if(lastbtn != null) {
+		        	lastbtn.setEffect(null);
+		        }
 				musicOff.setEffect(new DropShadow());
 				musicOn.setEffect(null);
 				musicOff.setSelected(true);
