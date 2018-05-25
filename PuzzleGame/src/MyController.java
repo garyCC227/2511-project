@@ -105,6 +105,8 @@ public class MyController {
     private MediaPlayer mp;
     private Rectangle lastR;
     private Button lastbtn;
+    private double iniheight;
+    private double iniwidth;
 
     public MyController(MediaPlayer mp) {
         this.mp = mp;
@@ -293,8 +295,18 @@ public class MyController {
         String move = event.getCode().toString();
         int direction = -1;
         Vehicle vehicle = newGame.getVehicle(c, r);
+        int orientation = vehicle.getOrientation();
         if (!newGame.movementOp(vehicle, move)) {
             System.out.println("Errno: Invalid move");
+            if(orientation == 0) { // if it is horizontal
+            	iniheight = 60 ;
+            	iniwidth = 60* vehicle.getSize();
+            } else { // if it is vertical
+            	iniheight = 60 * vehicle.getSize();
+            	iniwidth = 60;
+            }
+            currV.setHeight(iniheight);
+            currV.setWidth(iniwidth);
             clashEffect(currV);
             return;
         } else {
