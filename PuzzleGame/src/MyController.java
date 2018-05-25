@@ -225,7 +225,7 @@ public class MyController {
                 } else {
                     factors[0] = 11;
                 }
-                factors[1] = 5;
+                factors[1] = 0;
                 factors[2] = 2;
                 break;
             } else if (diffi.equals("NORMAL")) {

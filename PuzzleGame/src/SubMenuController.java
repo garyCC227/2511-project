@@ -157,7 +157,7 @@ public class SubMenuController {
     /*
      * @desc: go to next game
      */
-    public void nextGame(ActionEvent event) {
+    public void nextGame(ActionEvent event) throws Exception {
         System.out.println("level selected -> genereate next game");
         Button currButton = (Button) event.getSource();
         String difficulty = currButton.getText();
@@ -167,7 +167,7 @@ public class SubMenuController {
         currButton.setEffect(new DropShadow());
         lastbtn = currButton;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Myscene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MyScene.fxml"));
             MyController controller = new MyController(mp);
             controller.setDifficulty(difficulty);
             loader.setController(controller);

@@ -120,7 +120,7 @@ public class BoardGenerator {
                 }
             }
 
-            if (currState.getMovesFromSolution() >= this.bfs_times && currState.getRedCarMoves() >= this.redCarMoves) {
+            if ((currState.getMovesFromSolution() >= this.bfs_times && currState.getRedCarMoves() >= this.redCarMoves) || i >= 20000) {
             	redCarHead = currState.getVehicleList().get(0).getAddress()[0][0];
             	if (redCarHead <= (5 - redCarMoves)) {
             		break;
