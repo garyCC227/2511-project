@@ -60,7 +60,7 @@
             <Font name="Segoe Script" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="forward" focusTraversable="false" layoutX="312.0" layoutY="32.0" mnemonicParsing="false" onAction="#forward" prefHeight="59.0" prefWidth="133.0" style="-fx-background-color: #ffe4e1;" text="Forward">
+      <Button fx:id="forwardStep" focusTraversable="false" layoutX="312.0" layoutY="32.0" mnemonicParsing="false" onAction="#forward" prefHeight="59.0" prefWidth="133.0" style="-fx-background-color: #ffe4e1;" text="Forward">
          <font>
             <Font name="Segoe Script" size="18.0" />
          </font>
@@ -76,5 +76,10 @@
          </font>
       </Button>
       <ImageView fx:id="goalSign" fitHeight="65.0" fitWidth="65.0" layoutX="470.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="restart" focusTraversable="false" layoutX="470.0" layoutY="125.0" mnemonicParsing="false" onAction="#restart" prefHeight="60.0" prefWidth="125.0" style="-fx-background-color: #b0e0e6;" text="Restart">
+         <font>
+            <Font name="Segoe Script" size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -52,6 +52,7 @@ public class SubMenuController {
     private AnchorPane lastPage;
     private Background soundOnbackground;
     private Background soundOffbackground;
+    private Button lastbtn;
 
     public SubMenuController(AnchorPane myGamePage, MediaPlayer mp) {
         lastPage = myGamePage;
@@ -98,6 +99,11 @@ public class SubMenuController {
 
     public void continueGame() {
         System.out.println("continueGame clicked");
+        if(lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        continueGame.setEffect(new DropShadow());
+        lastbtn = continueGame;
         // close this window
         ((Stage) menu.getScene().getWindow()).close();
 
@@ -106,6 +112,11 @@ public class SubMenuController {
     public void selectLevel() {
         // set visible
         System.out.println("start clicked");
+        if(lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        nextGame.setEffect(new DropShadow());
+        lastbtn = nextGame;
         easy.setVisible(true);
         normal.setVisible(true);
         hard.setVisible(true);
@@ -116,6 +127,11 @@ public class SubMenuController {
      */
     public void backToMain() {
         System.out.println("return Main clicked");
+        if(lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        backMain.setEffect(new DropShadow());
+        lastbtn = backMain;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MenuPage.fxml"));
             MenuController controller = new MenuController(mp);
@@ -140,6 +156,11 @@ public class SubMenuController {
         System.out.println("level selected -> genereate next game");
         Button currButton = (Button) event.getSource();
         String difficulty = currButton.getText();
+        if(lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        currButton.setEffect(new DropShadow());
+        lastbtn = currButton;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Myscene.fxml"));
             MyController controller = new MyController(mp);

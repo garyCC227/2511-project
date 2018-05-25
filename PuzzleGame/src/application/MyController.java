@@ -12,7 +12,10 @@ import com.sun.scenario.effect.Bloom;
 
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.event.*;
 
 import javafx.event.ActionEvent;
@@ -22,11 +25,13 @@ import javafx.scene.input.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
@@ -42,11 +47,13 @@ public class MyController {
     @FXML
     private Button lastStep;
     @FXML
-    private Button setting;
+    private Button forwardStep;
     @FXML
     private Button solution;
     @FXML
-    private Button returnMenu;
+    private Button menu;
+    @FXML
+    private Button restart;
     @FXML
     private GridPane board;
     @FXML
@@ -101,6 +108,8 @@ public class MyController {
     private int userMovesIndex;
     private String difficulty; // difficulty chose by user
     private MediaPlayer mp;
+    private Rectangle lastR;
+    private Button lastbtn;
 
     public MyController(MediaPlayer mp) {
         this.mp = mp;
@@ -170,6 +179,32 @@ public class MyController {
     }
     
     public void clashEffect(Rectangle rec) {
+    	System.out.println("set clash effect");
+    	int rowspan = board.getRowSpan(rec);
+    	
+    	// orientation is horizontal
+    	if(rowspan == 1) {
+    		System.out.println("horizontal");
+    		//double width = rec.getWidth();
+    		KeyValue widthValue = new KeyValue(rec.widthProperty(), rec.getWidth() - 10);
+            KeyFrame frame = new KeyFrame(Duration.millis(100), widthValue);
+            Timeline timeline = new Timeline(frame);
+            timeline.setAutoReverse(true);
+            timeline.setCycleCount(4);
+            timeline.play();
+    	// orientation is vertical
+    	} else {
+    		System.out.println("vertical");
+    		//double height = rec.getHeight();
+    		
+    		Timeline timeline = new Timeline();
+    		timeline.setCycleCount(4);
+    		timeline.setAutoReverse(true);
+    		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100),
+    		   new KeyValue (rec.heightProperty(), rec.getHeight()-10)));
+    		timeline.play();
+    	}
+    	
     }
 
     /*
@@ -234,7 +269,16 @@ public class MyController {
         Rectangle currV = (Rectangle) event.getSource();
         System.out.println(currV.getId() + " pressed");
         ((Rectangle) event.getSource()).requestFocus();
-
+        
+        if(lastR != null) {
+        	lastR.setEffect(null);
+        }
+        if (lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        // show click effect
+        currV.setEffect(new DropShadow());
+        lastR = currV;
     }
 
     // when the mouse is released
@@ -256,6 +300,7 @@ public class MyController {
         Vehicle vehicle = newGame.getVehicle(c, r);
         if (!newGame.movementOp(vehicle, move)) {
             System.out.println("Errno: Invalid move");
+            clashEffect(currV);
             return;
         } else {
             newGame.print_board();
@@ -307,6 +352,7 @@ public class MyController {
                 Scene scene = new Scene(dialog, 500, 300);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.setTitle("This is a sub-menu");
                 stage.show();
 
             } catch (Exception e) {
@@ -327,7 +373,13 @@ public class MyController {
          * so can restart as many as we want
          */
         System.out.println("restart clicked!");
-
+        if(lastR != null) {
+        	lastR.setEffect(null);
+        }
+        if (lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        restart.setEffect(new DropShadow());
         // clear UI elements for vehicles
         clearUI_Vehicles();
 
@@ -342,6 +394,10 @@ public class MyController {
         userMovesIndex = -1;
         this.step = 0;
         this.move.setText(String.valueOf(step));
+        
+        // clear selection effect
+        lastR = null;
+        lastbtn = null;
 
     }
 
@@ -392,13 +448,17 @@ public class MyController {
                 rec.setHeight(60);
                 rec.setWidth(60 * size);
                 board.add(rec, col, row, size, 1); // node, col, row, colspan, rowspan
+       
             } else {
                 // vehicle is vertical
                 rec.setWidth(60);
                 rec.setHeight(60 * size);
                 board.add(rec, col, row, 1, size);
             }
-
+            // set alignment
+            board.setHalignment(rec, HPos.CENTER);
+            board.setValignment(rec, VPos.CENTER);
+            
             if (!rec.isVisible()) {
                 rec.setVisible(true);
             }
@@ -409,7 +469,14 @@ public class MyController {
 
     public void forward(ActionEvent event) {
         System.out.println("forward clicked!");
-
+        if(lastR != null) {
+        	lastR.setEffect(null);
+        }
+        if (lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        forwardStep.setEffect(new DropShadow());
+        lastbtn = forwardStep;
         // check if curr move is last move recorded
         // if there is no next move, return
         if (userMovesIndex + 1 > userMoves.size() - 1) {
@@ -483,7 +550,14 @@ public class MyController {
         if (userMovesIndex < 0) {
             return;
         }
-
+        if(lastR != null) {
+        	lastR.setEffect(null);
+        }
+        if (lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        lastStep.setEffect(new DropShadow());
+        lastbtn = lastStep;
         // get previous move & decrement index
         Move prevMove = userMoves.get(userMovesIndex).getReverseMove();
         userMovesIndex--;
@@ -546,6 +620,14 @@ public class MyController {
 
     public void getMenu() {
         System.out.println("getMenu clicked!");
+        if(lastR != null) {
+        	lastR.setEffect(null);
+        }
+        if (lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        menu.setEffect(new DropShadow());
+        lastbtn = menu;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/SubMenu.fxml"));
             SubMenuController controller = new SubMenuController(myGamePage, mp);
@@ -554,15 +636,25 @@ public class MyController {
             Scene scene = new Scene(dialog, 300, 450);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setTitle("It is a game");
             stage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
 
     public void getSolution(ActionEvent event) {
         System.out.println("get solution clicked!");
+        if(lastR != null) {
+        	lastR.setEffect(null);
+        }
+        if (lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        solution.setEffect(new DropShadow());
+        lastbtn = solution;
     }
 
 }

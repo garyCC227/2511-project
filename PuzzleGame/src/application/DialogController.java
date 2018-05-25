@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -25,9 +26,14 @@ public class DialogController {
     private Button normal;
     @FXML
     private Button hard;
+    @FXML
+    private Button nextG;
+    @FXML
+    private Button mainMenu;
     private MediaPlayer mp;
 
     private AnchorPane lastScene;
+    private Button lastbtn;
 
     public DialogController(AnchorPane aScene, MediaPlayer mp) {
         this.lastScene = aScene;
@@ -48,6 +54,11 @@ public class DialogController {
     public void nextGame(ActionEvent event) {
         System.out.println("NextGame clicked");
         Button currButton = (Button) event.getSource();
+        if(lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        currButton.setEffect(new DropShadow());
+        lastbtn = currButton;
         String difficulty = currButton.getText();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Myscene.fxml"));
@@ -70,6 +81,11 @@ public class DialogController {
 
     public void selectLevel(ActionEvent event) {
         // set visible
+        if(lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        nextG.setEffect(new DropShadow());
+        lastbtn = nextG;
         System.out.println("start clicked");
         if (easy.isVisible() == false) {
             easy.setVisible(true);
@@ -82,12 +98,13 @@ public class DialogController {
         }
     }
 
-    public void Restart(ActionEvent event) {
-
-    }
-
     public void returnMain(ActionEvent event) {
         System.out.println("return Main clicked");
+        if(lastbtn != null) {
+        	lastbtn.setEffect(null);
+        }
+        mainMenu.setEffect(new DropShadow());
+        lastbtn = mainMenu;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/MenuPage.fxml"));
             MenuController controller = new MenuController(mp);
