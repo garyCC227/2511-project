@@ -435,9 +435,11 @@ public class Board {
     	Move move = null;
     	Board currBoard = this;
     	while (currBoard != null) {
-    		move = this.prevMove.getReverseMove();
-    		solution.add(move);
-    		currBoard = this.prevBoard;
+    		if (currBoard.prevMove != null) {
+	    		move = currBoard.prevMove.getReverseMove();
+	    		solution.add(move);
+    		}
+    		currBoard = currBoard.prevBoard;
     	}
     	
     	return solution;

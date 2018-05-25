@@ -663,17 +663,12 @@ public class MyController {
         solution.setEffect(new DropShadow());
         lastbtn = solution;
         
-        /**
-        System.out.println("something didnt work");
-        
         ArrayList<Move> movesToSolution = newGame.getSolutionMoves();
         
-        System.out.println("mts size: " + movesToSolution.size());
-        
         for (Move m: movesToSolution) {
-        	System.out.print("head: [" + m.getVehicle().getAddress()[0][0] + ", " + + m.getVehicle().getAddress()[0][1] + "] direction: " + m.getDirection());
+        	System.out.println("head: [" + m.getVehicle().getAddress()[0][0] + ", " + + m.getVehicle().getAddress()[0][1] + "] direction: " + m.getDirection());
         }
-        **/
+        
     }
 
 }
